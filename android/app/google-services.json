@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "984334278124",
+    "project_id": "danceup-dcf49",
+    "storage_bucket": "danceup-dcf49.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984334278124:android:3cb3010c45a74948a274c9",
+        "android_client_info": {
+          "package_name": "com.example.dance_up"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMu2vybd3TXsxZ_IrNUcfn95bcF5e0gnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
