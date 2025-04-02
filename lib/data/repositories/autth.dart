@@ -3,7 +3,10 @@ import 'package:dance_up/data/models/user_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, UserModel>> signinWithEmailAndPassword();
+  Future<Either<Failure, UserModel>> signinWithEmailAndPassword(
+    String email,
+    String password,
+  );
   Future<Either<Failure, UserModel>> signupWithEmailAndPassword(
     String firstName,
     String lastName,
