@@ -1,4 +1,4 @@
-import 'package:dance_up/domain/entities/user.dart';
+import 'package:dance_up/data/entities/user.dart';
 
 class UserModel extends User {
   UserModel(
