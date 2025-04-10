@@ -1,3 +1,5 @@
+import 'package:dance_up/core/theme/theme.dart';
+import 'package:dance_up/features/auth/onboarding/meet_dancers_screnn.dart';
 import 'package:flutter/material.dart';
 
 class DanceApp extends StatelessWidget {
@@ -7,11 +9,10 @@ class DanceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      theme: AppTheme.lightTheme,
+      home: const MeetDancersScreen(),
+      // home: AuthScreen(),
+      // home: const HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
