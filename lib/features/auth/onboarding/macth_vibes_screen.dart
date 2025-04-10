@@ -38,21 +38,20 @@ class _MatchVibesScreenState extends State<MatchVibesScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Match with Your Vibe",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       "Set your dance style and level to find the perfect partners and events just for you!",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 36),
                     Row(
@@ -76,9 +75,12 @@ class _MatchVibesScreenState extends State<MatchVibesScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Next",
-                              style: TextStyle(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(color: Colors.white),
                             ),
                           ),
                         ),

@@ -40,21 +40,20 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Discover Dance Events",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       "Stay updated on the hottest dance events in your city and never miss a chance to groove!",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 36),
                     Row(
@@ -62,7 +61,8 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -78,9 +78,12 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Next",
-                              style: TextStyle(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(color: Colors.white),
                             ),
                           ),
                         ),
@@ -107,9 +110,9 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Skip",
-                              style: TextStyle(color: Colors.black),
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),
                         ),

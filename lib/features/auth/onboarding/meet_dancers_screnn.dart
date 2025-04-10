@@ -39,21 +39,20 @@ class _MeetDancersScreenState extends State<MeetDancersScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Meet Dancers",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      "Connect with dancers near you, plan meetups,\nand hit the dance floor together!",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                    Text(
+                      "Connect with dancers near you, plan meetups, and hit the dance floor together!",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 36),
                     Row(
@@ -61,7 +60,8 @@ class _MeetDancersScreenState extends State<MeetDancersScreen> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -77,9 +77,12 @@ class _MeetDancersScreenState extends State<MeetDancersScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Next",
-                              style: TextStyle(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(color: Colors.white),
                             ),
                           ),
                         ),
@@ -106,9 +109,9 @@ class _MeetDancersScreenState extends State<MeetDancersScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Skip",
-                              style: TextStyle(color: Colors.black),
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),
                         ),
