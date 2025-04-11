@@ -1,8 +1,10 @@
 import 'package:dance_up/core/components/custom_button.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/components/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({
@@ -14,6 +16,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final AuthPresenter presenter = Get.find<AuthPresenter>();
+
   bool isAgree = false;
   // Controllers
   final TextEditingController firstNameController = TextEditingController();
@@ -142,7 +146,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         const SizedBox(height: 10),
         CustomButton(
           text: 'Sign Up',
-          onPressed: () {},
+          onPressed: () {
+            if (isAllFieldsValid()) {
+              presenter.signUp(
+                context: context,
+                firstName: firstNameController.text,
+                lastName: lastNameController.text,
+                email: emailController.text,
+                password: passwordController.text,
+              );
+            }
+          },
           isDisabled: !isAllFieldsValid(),
         ),
         const SizedBox(height: 30), // calculated status bar height

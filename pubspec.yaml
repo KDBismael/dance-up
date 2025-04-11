@@ -43,6 +43,7 @@ dependencies:
   sign_in_with_apple: ^6.1.4
   google_fonts: ^6.2.1
   flutter_svg: ^2.0.17
+  get: ^4.7.2
 
 dev_dependencies:
   flutter_test:
