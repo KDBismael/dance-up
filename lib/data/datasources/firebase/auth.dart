@@ -33,6 +33,7 @@ class Auth implements AuthRepository {
       }
 
       final userData = userDoc.data()!;
+      print(userData);
       final user = UserModel.fromJson(userData);
 
       return right(user);
@@ -168,7 +169,7 @@ class Auth implements AuthRepository {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'userId': userId,
+        'id': userId,
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
       });

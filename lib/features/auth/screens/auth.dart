@@ -1,5 +1,5 @@
 import 'package:dance_up/core/theme/colors.dart';
-import 'package:dance_up/features/auth/components/custom_text_field.dart';
+import 'package:dance_up/features/auth/screens/sign_in.dart';
 import 'package:dance_up/features/auth/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -97,7 +97,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: _currentState == AuthScreenState.login
-                      ? const LoginScreen()
+                      ? const SignInScreen()
                       : const SignUpScreen(),
                 ),
               ),
@@ -105,138 +105,6 @@ class _AuthScreenState extends State<AuthScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        OutlinedButton(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                "res/svg/Facebook.svg",
-                height: 24,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                "Login with Apple",
-                style: Theme.of(context).textTheme.bodyMedium,
-              )
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        OutlinedButton(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                "res/svg/Facebook.svg",
-                height: 24,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                "Login with Google",
-                style: Theme.of(context).textTheme.bodyMedium,
-              )
-            ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              height: 1,
-              color: AppColors.blackGray,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              color: Colors.white,
-              child: Text(
-                "or continue with email",
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      backgroundColor: Colors.white,
-                      color: AppColors.blackGray,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        const CustomTextField(
-          isValid: false,
-          errorText: "ERROR",
-          prefixIcon: Icons.email_outlined,
-          hintText: "enter your email",
-        ),
-        const SizedBox(height: 20),
-        const CustomTextField(
-          isValid: true,
-          helperText: "Good password",
-          prefixIcon: Icons.key_outlined,
-          hintText: "enter your password",
-          obscureText: true,
-        ),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              "Forgot Password?",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.gray,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14.5)),
-          onPressed: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Login",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

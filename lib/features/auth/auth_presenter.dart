@@ -55,7 +55,7 @@ class AuthPresenter extends GetxController {
       (user) {
         isLoading.value = false;
         errorMessage?.value = "";
-        Get.offAll(() => const HomePage(title: "Dance App"));
+        // Get.offAll(() => const HomePage(title: "Dance App"));
         Navigator.push(
             context,
             MaterialPageRoute(
