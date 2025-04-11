@@ -3,7 +3,7 @@ import 'package:dance_up/features/auth/onboarding/macth_vibes_screen.dart';
 import 'package:flutter/material.dart';
 
 class DiscoverDanceEventsScreen extends StatefulWidget {
-  const DiscoverDanceEventsScreen({Key? key}) : super(key: key);
+  const DiscoverDanceEventsScreen({super.key});
 
   @override
   State<DiscoverDanceEventsScreen> createState() =>

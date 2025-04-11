@@ -3,7 +3,7 @@ import 'package:dance_up/features/auth/onboarding/discover_dance_event_screnn.da
 import 'package:flutter/material.dart';
 
 class MeetDancersScreen extends StatefulWidget {
-  const MeetDancersScreen({Key? key}) : super(key: key);
+  const MeetDancersScreen({super.key});
 
   @override
   State<MeetDancersScreen> createState() => _MeetDancersScreenState();

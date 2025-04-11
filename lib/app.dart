@@ -11,7 +11,7 @@ class DanceApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
       // home: const MeetDancersScreen(),
-      home: AuthScreen(),
+      home: const AuthScreen(),
       // home: const HomePage(title: 'Flutter Demo Home Page'),
     );
   }

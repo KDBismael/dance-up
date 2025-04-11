@@ -10,7 +10,7 @@ enum AuthScreenState {
 }
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({super.key});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -116,27 +116,37 @@ class SignUpScreen extends StatelessWidget {
       children: [
         const SizedBox(height: 20),
         const CustomTextField(
+          isValid: false,
+          errorText: "ERROR",
           prefixIcon: Icons.person_outline,
           hintText: "enter your first name",
         ),
         const SizedBox(height: 10),
         const CustomTextField(
+          isValid: false,
+          errorText: "ERROR",
           prefixIcon: Icons.person_outline,
           hintText: "enter your last name",
         ),
         const SizedBox(height: 10),
         const CustomTextField(
+          isValid: false,
+          errorText: "ERROR",
           prefixIcon: Icons.email_outlined,
           hintText: "enter your email",
         ),
         const SizedBox(height: 10),
         const CustomTextField(
+          isValid: false,
+          errorText: "ERROR",
           prefixIcon: Icons.key_outlined,
           hintText: "enter your password",
           obscureText: true,
         ),
         const SizedBox(height: 10),
         const CustomTextField(
+          isValid: false,
+          errorText: "ERROR",
           prefixIcon: Icons.key_outlined,
           hintText: "confirm your password",
           obscureText: true,
@@ -293,11 +303,15 @@ class LoginScreen extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         const CustomTextField(
+          isValid: false,
+          errorText: "ERROR",
           prefixIcon: Icons.email_outlined,
           hintText: "enter your email",
         ),
         const SizedBox(height: 20),
         const CustomTextField(
+          isValid: true,
+          helperText: "Good password",
           prefixIcon: Icons.key_outlined,
           hintText: "enter your password",
           obscureText: true,
@@ -375,7 +389,6 @@ class LoginScreen extends StatelessWidget {
 
 class _tab extends StatelessWidget {
   const _tab({
-    super.key,
     required bool state,
     required String title,
   })  : _state = state,

@@ -2,7 +2,7 @@ import 'package:dance_up/app.dart';
 import 'package:flutter/material.dart';
 
 class MatchVibesScreen extends StatefulWidget {
-  const MatchVibesScreen({Key? key}) : super(key: key);
+  const MatchVibesScreen({super.key});
 
   @override
   State<MatchVibesScreen> createState() => _MatchVibesScreenState();
