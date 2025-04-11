@@ -10,7 +10,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final String? errorText;
   final String? helperText;
-  final bool isValid;
+  final bool? isValid;
   final void Function(String)? onChanged;
 
   const CustomTextField({
@@ -21,7 +21,7 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     required this.isValid,
     this.keyboardType = TextInputType.text,
-    this.textInputAction = TextInputAction.done,
+    this.textInputAction = TextInputAction.next,
     this.onChanged,
     this.errorText,
     this.helperText,
@@ -55,7 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction,
           onChanged: widget.onChanged,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: AppColors.primary,
               ),
           decoration: InputDecoration(
@@ -119,7 +119,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
             ],
           )
-        else if (widget.isValid && widget.helperText != null)
+        else if (widget.isValid == true && widget.helperText != null)
           Row(
             children: [
               const Icon(

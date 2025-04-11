@@ -1,6 +1,6 @@
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/components/custom_text_field.dart';
-import 'package:flutter/gestures.dart';
+import 'package:dance_up/features/auth/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -92,131 +92,19 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: _currentState == AuthScreenState.login
-                  ? const LoginScreen()
-                  : const SignUpScreen(),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        const CustomTextField(
-          isValid: false,
-          errorText: "ERROR",
-          prefixIcon: Icons.person_outline,
-          hintText: "enter your first name",
-        ),
-        const SizedBox(height: 10),
-        const CustomTextField(
-          isValid: false,
-          errorText: "ERROR",
-          prefixIcon: Icons.person_outline,
-          hintText: "enter your last name",
-        ),
-        const SizedBox(height: 10),
-        const CustomTextField(
-          isValid: false,
-          errorText: "ERROR",
-          prefixIcon: Icons.email_outlined,
-          hintText: "enter your email",
-        ),
-        const SizedBox(height: 10),
-        const CustomTextField(
-          isValid: false,
-          errorText: "ERROR",
-          prefixIcon: Icons.key_outlined,
-          hintText: "enter your password",
-          obscureText: true,
-        ),
-        const SizedBox(height: 10),
-        const CustomTextField(
-          isValid: false,
-          errorText: "ERROR",
-          prefixIcon: Icons.key_outlined,
-          hintText: "confirm your password",
-          obscureText: true,
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Checkbox(
-                side: const BorderSide(color: AppColors.accent, width: 2),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                activeColor: AppColors.accent,
-                focusColor: AppColors.accent,
-                value: true,
-                onChanged: (val) {}),
-            const SizedBox(width: 8),
             Expanded(
-              child: RichText(
-                  text: TextSpan(
-                text: "By signing up, you agree to our ",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: AppColors.blackGray),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Terms of Service',
-                    recognizer: TapGestureRecognizer(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        decoration: TextDecoration.underline,
-                        color: AppColors.accent,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const TextSpan(text: " and "),
-                  TextSpan(
-                    text: 'Privacy Policy',
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        decoration: TextDecoration.underline,
-                        color: AppColors.accent,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              )),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: _currentState == AuthScreenState.login
+                      ? const LoginScreen()
+                      : const SignUpScreen(),
+                ),
+              ),
             ),
           ],
         ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.gray,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 14.5)),
-          onPressed: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Sign Up",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -352,40 +240,6 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-// class CustomTextField extends StatelessWidget {
-//   const CustomTextField({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextField(
-//       decoration: InputDecoration(
-//         prefixIcon: const Icon(
-//           Icons.email_outlined,
-//           size: 18,
-//           color: AppColors.blackGray,
-//         ),
-//         hintText: "enter your email",
-//         hintStyle: Theme.of(context)
-//             .textTheme
-//             .labelSmall
-//             ?.copyWith(color: AppColors.blackGray),
-//         border: const OutlineInputBorder(
-//             borderRadius: BorderRadius.all(Radius.circular(8)),
-//             borderSide: BorderSide(color: AppColors.gray)),
-//         enabledBorder: const OutlineInputBorder(
-//             borderRadius: BorderRadius.all(Radius.circular(8)),
-//             borderSide: BorderSide(color: AppColors.gray)),
-//         focusedBorder: const OutlineInputBorder(
-//           borderRadius: BorderRadius.all(Radius.circular(8)),
-//           borderSide: BorderSide(color: AppColors.primary),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class _tab extends StatelessWidget {
   const _tab({
