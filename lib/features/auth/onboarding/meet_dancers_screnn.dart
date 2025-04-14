@@ -1,5 +1,6 @@
-import 'package:dance_up/app.dart';
+import 'package:dance_up/core/services/get_storage.dart';
 import 'package:dance_up/features/auth/onboarding/discover_dance_event_screnn.dart';
+import 'package:dance_up/features/auth/screens/auth.dart';
 import 'package:flutter/material.dart';
 
 class MeetDancersScreen extends StatefulWidget {
@@ -101,11 +102,11 @@ class _MeetDancersScreenState extends State<MeetDancersScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14.5)),
                             onPressed: () {
+                              setOnboardingSeen();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomePage(
-                                      title: 'Flutter Demo Home Page'),
+                                  builder: (context) => const AuthScreen(),
                                 ),
                               );
                             },

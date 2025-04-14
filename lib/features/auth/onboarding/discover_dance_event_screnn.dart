@@ -1,5 +1,6 @@
-import 'package:dance_up/app.dart';
+import 'package:dance_up/core/services/get_storage.dart';
 import 'package:dance_up/features/auth/onboarding/macth_vibes_screen.dart';
+import 'package:dance_up/features/auth/screens/auth.dart';
 import 'package:flutter/material.dart';
 
 class DiscoverDanceEventsScreen extends StatefulWidget {
@@ -102,11 +103,11 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14.5)),
                             onPressed: () {
+                              setOnboardingSeen();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomePage(
-                                      title: 'Flutter Demo Home Page'),
+                                  builder: (context) => const AuthScreen(),
                                 ),
                               );
                             },
