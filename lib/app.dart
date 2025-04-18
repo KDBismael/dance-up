@@ -1,7 +1,7 @@
 import 'package:dance_up/core/services/get_storage.dart';
 import 'package:dance_up/features/auth/onboarding/meet_dancers_screnn.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
-import 'package:dance_up/splash.dart';
+import 'package:dance_up/features/auth/sign_up_onboarding/sign_up_onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ class DanceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen();
+    return const SignUpOnboarding();
     // return MaterialApp(
     //   title: 'Dance Up',
     //   theme: AppTheme.lightTheme,
