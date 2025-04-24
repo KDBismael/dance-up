@@ -45,6 +45,7 @@ dependencies:
   flutter_svg: ^2.0.17
   get: ^4.7.2
   get_storage: ^2.1.1
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:
