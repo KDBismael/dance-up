@@ -42,7 +42,7 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                "res/svg/Facebook.svg",
+                "res/svg/ic_baseline-apple.svg",
                 height: 24,
               ),
               const SizedBox(width: 8),
@@ -67,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                "res/svg/Facebook.svg",
+                "res/svg/devicon_google.svg",
                 height: 24,
               ),
               const SizedBox(width: 8),
