@@ -1,5 +1,6 @@
 import 'package:dance_up/app.dart';
 import 'package:dance_up/data/repositories/autth.dart';
+import 'package:dance_up/features/auth/screens/auth.dart';
 import 'package:dance_up/features/auth/sign_up_onboarding/sign_up_onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,10 +32,7 @@ class AuthPresenter extends GetxController {
       (user) {
         isLoading.value = false;
         errorMessage?.value = "";
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SignUpOnboarding()));
-
-        // Get.offAll(() => const HomePage(title: "Dance App"));
+        Get.offAll(() => const SignUpOnboarding());
       },
     );
   }
@@ -54,12 +52,13 @@ class AuthPresenter extends GetxController {
       (user) {
         isLoading.value = false;
         errorMessage?.value = "";
-        // Get.offAll(() => const HomePage(title: "Dance App"));
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const HomePage(title: "Dance App")));
+        Get.offAll(() => const HomePage(title: "Dance App"));
       },
     );
+  }
+
+  Future<void> signOut() async {
+    await repository.signOut();
+    Get.offAll(() => const AuthScreen());
   }
 }

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AuthRepository>(() => Auth());
-    Get.lazyPut<AuthPresenter>(() => AuthPresenter(Get.find()));
+    Get.lazyPut<AuthRepository>(() => Auth(), fenix: true);
+    Get.lazyPut<AuthPresenter>(() => AuthPresenter(Get.find()), fenix: true);
   }
 }

@@ -15,4 +15,5 @@ abstract class AuthRepository {
   );
   Future<Either<Failure, UserModel>> signinWithGoogle();
   Future<Either<Failure, UserModel>> signinWithApple();
+  Future<Either<Failure, void>> signOut();
 }

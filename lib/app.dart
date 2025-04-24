@@ -1,8 +1,10 @@
 import 'package:dance_up/core/services/get_storage.dart';
 import 'package:dance_up/core/theme/theme.dart';
 import 'package:dance_up/dependencies.dart';
+import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/onboarding/meet_dancers_screnn.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
+import 'package:dance_up/routes/get_pages.dart';
 import 'package:dance_up/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,9 @@ class DanceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: AppTheme.lightTheme,
-      initialBinding: InitialBinding(), // <- attach your bindings here
+      initialBinding: InitialBinding(),
+      getPages: getPages,
+      debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
   }
@@ -30,13 +34,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final AuthPresenter authPresenter = Get.find<AuthPresenter>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                FirebaseAuth.instance.signOut();
+                authPresenter.signOut();
               },
               child: const Text(
                 'Welcome to Dance Up!',

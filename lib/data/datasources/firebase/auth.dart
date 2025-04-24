@@ -195,4 +195,16 @@ class Auth implements AuthRepository {
       return Left(ServerFailure("Unknown Error: $e"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      await auth.signOut();
+      return const Right(null);
+    } on FirebaseAuthException catch (e) {
+      return Left(FirebaseAuthFailure(e.message ?? "Sign out failed."));
+    } catch (e) {
+      return Left(FirebaseAuthFailure("Unknown error: $e"));
+    }
+  }
 }
