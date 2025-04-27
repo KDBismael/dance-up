@@ -16,8 +16,7 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+        decoration: const BoxDecoration(
           color: Colors.black,
         ),
         child: Stack(
@@ -25,7 +24,6 @@ class _DiscoverDanceEventsScreenState extends State<DiscoverDanceEventsScreen> {
             // Background Image
             Positioned.fill(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
                 child: Image.asset(
                   'res/images/discoverDanceEvents.png',
                   fit: BoxFit.cover,
