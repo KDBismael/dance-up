@@ -159,7 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
           isDisabled: !isAllFieldsValid(),
         ),
-        const SizedBox(height: 30), // calculated status bar height
+        const SizedBox(height: 10),
       ],
     );
   }

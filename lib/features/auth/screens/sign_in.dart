@@ -147,6 +147,7 @@ class _SignInScreenState extends State<SignInScreen> {
           },
           isDisabled: !isAllFieldsValid(),
         ),
+        const SizedBox(height: 10),
       ],
     );
   }
