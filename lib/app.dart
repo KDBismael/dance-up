@@ -4,6 +4,8 @@ import 'package:dance_up/dependencies.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/onboarding/meet_dancers_screnn.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
+import 'package:dance_up/features/navigation/bottom_navigation_bar.dart';
+import 'package:dance_up/features/navigation/navigation_controller.dart';
 import 'package:dance_up/routes/get_pages.dart';
 import 'package:dance_up/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,22 +41,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                authPresenter.signOut();
-              },
-              child: const Text(
-                'Welcome to Dance Up!',
-              ),
-            ),
+      bottomNavigationBar: const BottomNaBar(),
+      body: Obx(
+        () => IndexedStack(
+          index: NavigationController.to.currentIndex.value,
+          children: const [
+            Center(child: Text('Home')),
+            Center(child: Text('Profile')),
           ],
         ),
       ),
