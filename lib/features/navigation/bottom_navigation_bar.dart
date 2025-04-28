@@ -9,26 +9,35 @@ class BottomNaBar extends StatelessWidget {
   @override
   Widget build(Object context) {
     return Obx(
-      () => NavigationBar(
-        backgroundColor: AppColors.white,
-        elevation: 30,
-        shadowColor: AppColors.primary,
-        indicatorColor: AppColors.accent,
-        selectedIndex: NavigationController.to.currentIndex.value,
-        onDestinationSelected: (value) =>
-            NavigationController.to.changeIndex(value),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home, color: AppColors.white),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person, color: AppColors.white),
-            label: 'Profile',
-          ),
-        ],
+      () => Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: NavigationBar(
+          backgroundColor: AppColors.white,
+          indicatorColor: AppColors.accent,
+          selectedIndex: NavigationController.to.currentIndex.value,
+          onDestinationSelected: (value) =>
+              NavigationController.to.changeIndex(value),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home, color: AppColors.white),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person, color: AppColors.white),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
