@@ -6,6 +6,7 @@ import 'package:dance_up/features/auth/onboarding/meet_dancers_screnn.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
 import 'package:dance_up/features/navigation/bottom_navigation_bar.dart';
 import 'package:dance_up/features/navigation/navigation_controller.dart';
+import 'package:dance_up/features/profile/screens/profile.dart';
 import 'package:dance_up/routes/get_pages.dart';
 import 'package:dance_up/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,9 +46,9 @@ class _HomePageState extends State<HomePage> {
       body: Obx(
         () => IndexedStack(
           index: NavigationController.to.currentIndex.value,
-          children: const [
-            Center(child: Text('Home')),
-            Center(child: Text('Profile')),
+          children: [
+            const Center(child: Text('Home')),
+            Profile(),
           ],
         ),
       ),
