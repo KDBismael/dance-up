@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.padding = const EdgeInsets.symmetric(vertical: 14.5),
-    this.borderRadius = 30.0,
+    this.borderRadius = 16.0,
     this.type = CustomButtonType.elevated,
     this.isDisabled = false,
     this.disabledColor = AppColors.blackGray,

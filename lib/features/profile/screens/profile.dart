@@ -78,7 +78,10 @@ class Profile extends StatelessWidget {
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(height: 20),
-                  const ProfileItem(
+                  ProfileItem(
+                    onTap: () {
+                      Get.toNamed("/edit_personal_info");
+                    },
                     icon: Icons.info_outline_rounded,
                     title: 'Personnal information',
                   ),
