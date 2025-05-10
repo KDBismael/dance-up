@@ -2,6 +2,7 @@ import 'package:dance_up/core/components/custom_button.dart';
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/auth/components/custom_text_field.dart';
+import 'package:dance_up/features/auth/components/selectable_container.dart';
 import 'package:dance_up/features/profile/components/edit_info_item.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,7 @@ class EditPersonalInfo extends StatelessWidget {
                 onTap: () {
                   customModalBottomSheet(
                     context,
-                    const EditItem(
+                    const EditInputModalBody(
                       title: "Edit your Bio",
                       hintText: 'bio',
                       value: "Salsa lover, dancing for 5 years!",
@@ -76,7 +77,7 @@ class EditPersonalInfo extends StatelessWidget {
                 onTap: () {
                   customModalBottomSheet(
                     context,
-                    const EditItem(
+                    const EditInputModalBody(
                       title: "Edit your first name",
                       hintText: 'First name',
                       value: "Jaydon",
@@ -91,7 +92,7 @@ class EditPersonalInfo extends StatelessWidget {
                 onTap: () {
                   customModalBottomSheet(
                     context,
-                    const EditItem(
+                    const EditInputModalBody(
                       title: "Edit your last name",
                       hintText: 'last name',
                       value: "Mango",
@@ -106,7 +107,7 @@ class EditPersonalInfo extends StatelessWidget {
                 onTap: () {
                   customModalBottomSheet(
                     context,
-                    const EditItem(
+                    const EditInputModalBody(
                       title: "Edit your username",
                       hintText: 'Username',
                       value: "@salsaking21",
@@ -144,13 +145,7 @@ class EditPersonalInfo extends StatelessWidget {
                 onTap: () {
                   customModalBottomSheet(
                     context,
-                    Center(
-                      child: Column(
-                        children: [
-                          Text("Dance Style"),
-                        ],
-                      ),
-                    ),
+                    const DanceStyleModalSelectionBody(),
                   );
                 },
                 child: const Row(
@@ -176,13 +171,7 @@ class EditPersonalInfo extends StatelessWidget {
                 onTap: () {
                   customModalBottomSheet(
                     context,
-                    Center(
-                      child: Column(
-                        children: [
-                          Text("Language"),
-                        ],
-                      ),
-                    ),
+                    const LanguageSelectionModalBody(),
                   );
                 },
                 child: const Row(
@@ -241,6 +230,112 @@ class EditPersonalInfo extends StatelessWidget {
   }
 }
 
+class DanceStyleModalSelectionBody extends StatelessWidget {
+  const DanceStyleModalSelectionBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text("Select Your Dance Style",
+            style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 14),
+        Text(
+            "Choose your favorite dance style to connect with like-minded dancers!",
+            style: Theme.of(context).textTheme.labelSmall),
+        const SizedBox(height: 24),
+        Row(
+          children: [
+            SelectableContainer(text: "style 1"),
+            const SizedBox(width: 8),
+            SelectableContainer(text: "style 2"),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            SelectableContainer(text: "style 1"),
+            const SizedBox(width: 8),
+            SelectableContainer(text: "style 2"),
+          ],
+        ),
+        const SizedBox(height: 48),
+        CustomButton(text: "Submit", onPressed: () {}),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Cancel",
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium
+                    ?.copyWith(color: AppColors.blackGray),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class LanguageSelectionModalBody extends StatelessWidget {
+  const LanguageSelectionModalBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text("Select Your Languages",
+            style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 14),
+        Text(
+            "Choose your spoken languages to Helps with international connections!",
+            style: Theme.of(context).textTheme.labelSmall),
+        const SizedBox(height: 24),
+        Row(
+          children: [
+            SelectableContainer(text: "English"),
+            const SizedBox(width: 8),
+            SelectableContainer(text: "French"),
+          ],
+        ),
+        const SizedBox(height: 48),
+        CustomButton(text: "Submit", onPressed: () {}),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Cancel",
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium
+                    ?.copyWith(color: AppColors.blackGray),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class EditLabel extends StatelessWidget {
   const EditLabel({
     super.key,
@@ -269,8 +364,8 @@ class EditLabel extends StatelessWidget {
   }
 }
 
-class EditItem extends StatelessWidget {
-  const EditItem({
+class EditInputModalBody extends StatelessWidget {
+  const EditInputModalBody({
     super.key,
     required this.title,
     this.value,

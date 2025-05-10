@@ -2,6 +2,7 @@ import 'package:dance_up/core/components/base_widget_with_gradient.dart';
 import 'package:dance_up/core/components/custom_button.dart';
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/components/custom_dropdown.dart';
+import 'package:dance_up/features/auth/components/selectable_container.dart';
 import 'package:flutter/material.dart';
 
 enum OnboardingSteps {
@@ -211,36 +212,8 @@ class DanceStyle extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 13),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColors.gray,
-                  width: 1,
-                ),
-              ),
-              child: Text(
-                "style 1",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 13),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColors.gray,
-                  width: 1,
-                ),
-              ),
-              child: Text(
-                "style 2",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
+            SelectableContainer(text: "style 1"),
+            SelectableContainer(text: "style 2"),
           ],
         ),
       ],
