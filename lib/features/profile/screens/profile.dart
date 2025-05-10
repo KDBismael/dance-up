@@ -1,5 +1,6 @@
 import 'package:dance_up/core/components/base_widget_with_gradient.dart';
 import 'package:dance_up/features/profile/components/profile_item.dart';
+import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -80,12 +81,15 @@ class Profile extends StatelessWidget {
                   const SizedBox(height: 20),
                   ProfileItem(
                     onTap: () {
-                      Get.toNamed("/edit_personal_info");
+                      Get.toNamed(Routes.editPersonalInfo);
                     },
                     icon: Icons.info_outline_rounded,
                     title: 'Personnal information',
                   ),
-                  const ProfileItem(
+                  ProfileItem(
+                    onTap: () {
+                      Get.toNamed(Routes.danceActivityInfo);
+                    },
                     icon: Icons.card_travel_outlined,
                     title: 'Dance & Activity Informations',
                   ),

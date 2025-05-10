@@ -1,3 +1,4 @@
+import 'package:dance_up/features/profile/screens/dance_activity_info.dart';
 import 'package:dance_up/features/profile/screens/edit_personal_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,5 +13,9 @@ final getPages = [
   GetPage(
     name: Routes.editPersonalInfo,
     page: () => const EditPersonalInfo(),
+  ),
+  GetPage(
+    name: Routes.danceActivityInfo,
+    page: () => DanceActivityInfo(),
   ),
 ];
