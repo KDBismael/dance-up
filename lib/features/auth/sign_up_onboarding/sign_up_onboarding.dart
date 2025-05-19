@@ -1,9 +1,11 @@
 import 'package:dance_up/core/components/base_widget_with_gradient.dart';
 import 'package:dance_up/core/components/custom_button.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/auth/components/selectable_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 enum OnboardingSteps {
   city,
@@ -22,6 +24,8 @@ class SignUpOnboarding extends StatefulWidget {
 }
 
 class _SignUpOnboardingState extends State<SignUpOnboarding> {
+  final AuthPresenter presenter = Get.find<AuthPresenter>();
+
   OnboardingSteps currentStep = OnboardingSteps.city;
   final List<String> list = <String>[
     "New York",
@@ -130,6 +134,7 @@ class _SignUpOnboardingState extends State<SignUpOnboarding> {
                 CustomButton(
                   text: "Submit",
                   onPressed: () {
+                    onSubmit();
                     _onNextStep();
                   },
                   // isDisabled: true,
@@ -181,10 +186,16 @@ class _SignUpOnboardingState extends State<SignUpOnboarding> {
     });
   }
 
-  void _onSubmit() {
-    // Handle form submission
-    // You can access the selected values from the dropdowns here
-    // For example: selectedCity, selectedDanceStyle, selectedDanceLevel
+  Future<void> onSubmit() async {
+    Map<String, dynamic> data = {};
+    if (currentStep == OnboardingSteps.city) {
+      data["city"] = selectedCity;
+    } else if (currentStep == OnboardingSteps.danceStyle) {
+      data["danceStyle"] = danceStyles;
+    } else if (currentStep == OnboardingSteps.danceLevel) {
+      data["danceLevel"] = danceLevel;
+    }
+    await presenter.submitSignUpOnboarding(data);
   }
 }
 

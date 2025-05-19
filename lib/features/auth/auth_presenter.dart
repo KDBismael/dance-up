@@ -1,5 +1,6 @@
 import 'package:dance_up/app.dart';
 import 'package:dance_up/data/repositories/autth.dart';
+import 'package:dance_up/data/repositories/profile.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
 import 'package:dance_up/features/auth/sign_up_onboarding/sign_up_onboarding.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,9 @@ import 'package:get/get.dart';
 
 class AuthPresenter extends GetxController {
   final AuthRepository repository;
+  final ProfileRepository profileRepository;
 
-  AuthPresenter(this.repository);
+  AuthPresenter(this.repository, this.profileRepository);
 
   final RxBool isLoading = false.obs;
   final RxString? errorMessage = RxString('');
@@ -60,5 +62,21 @@ class AuthPresenter extends GetxController {
   Future<void> signOut() async {
     await repository.signOut();
     Get.offAll(() => const AuthScreen());
+  }
+
+  Future<void> submitSignUpOnboarding(Map<String, dynamic> data) async {
+    isLoading.value = true;
+    final res = await profileRepository.updateProfile(data);
+    res.fold(
+      (failure) {
+        isLoading.value = false;
+        errorMessage?.value = failure.message;
+        print(failure.message);
+      },
+      (user) {
+        print(user.toJson());
+        isLoading.value = false;
+      },
+    );
   }
 }
