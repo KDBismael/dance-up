@@ -12,7 +12,7 @@ final getPages = [
   ),
   GetPage(
     name: Routes.editPersonalInfo,
-    page: () => const EditPersonalInfo(),
+    page: () => EditPersonalInfo(),
   ),
   GetPage(
     name: Routes.danceActivityInfo,

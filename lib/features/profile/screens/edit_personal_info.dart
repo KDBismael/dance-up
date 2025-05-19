@@ -6,9 +6,18 @@ import 'package:dance_up/features/auth/components/selectable_container.dart';
 import 'package:dance_up/features/profile/components/base_profile_sub_page.dart';
 import 'package:dance_up/features/profile/components/edit_info_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EditPersonalInfo extends StatelessWidget {
-  const EditPersonalInfo({super.key});
+  EditPersonalInfo({super.key});
+
+  final items = [
+    "Beginner",
+    "Intermediate",
+    "Advanced",
+    "Professional",
+  ];
+  var danceLevel = ''.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -95,13 +104,16 @@ class EditPersonalInfo extends StatelessWidget {
                   .labelMedium
                   ?.copyWith(color: AppColors.blackGray)),
           const SizedBox(height: 8),
-          const CustomDropdown(
-            dropdownItems: [
-              "Beginner",
-              "Intermediate",
-              "Advanced",
-            ],
-            hintText: "Dance level",
+          Obx(
+            () => CustomDropdown(
+              dropdownItems: items,
+              hintText: "Dance level",
+              onChanged: (value) {
+                danceLevel.value = value!;
+              },
+              selectedValue:
+                  danceLevel.value.isNotEmpty ? danceLevel.value : null,
+            ),
           ),
           const SizedBox(height: 24),
           Text(

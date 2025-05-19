@@ -33,6 +33,7 @@ class _SignUpOnboardingState extends State<SignUpOnboarding> {
   ];
   List<String> danceStyles = [];
   List<String> danceLevel = [];
+  String? selectedCity;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +145,15 @@ class _SignUpOnboardingState extends State<SignUpOnboarding> {
   Widget _buildStepContent() {
     switch (currentStep) {
       case OnboardingSteps.city:
-        return CIty(list: list);
+        return cityScreen(
+          list,
+          selectedValue: selectedCity,
+          onChanged: (value) {
+            setState(() {
+              selectedCity = value;
+            });
+          },
+        );
       case OnboardingSteps.danceStyle:
         return const DanceStyle();
       case OnboardingSteps.danceLevel:
@@ -179,25 +188,21 @@ class _SignUpOnboardingState extends State<SignUpOnboarding> {
   }
 }
 
-class CIty extends StatelessWidget {
-  const CIty({
-    super.key,
-    required this.list,
-  });
-
-  final List<String> list;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomDropdown(
-          dropdownItems: list,
-          hintText: "Select a city",
-        ),
-      ],
-    );
-  }
+Widget cityScreen(
+  List<String> list, {
+  String? selectedValue,
+  void Function(String?)? onChanged,
+}) {
+  return Column(
+    children: [
+      CustomDropdown(
+        dropdownItems: list,
+        hintText: "Select a city",
+        selectedValue: selectedValue,
+        onChanged: onChanged,
+      ),
+    ],
+  );
 }
 
 class DanceStyle extends StatelessWidget {
