@@ -1,11 +1,21 @@
 import 'package:dance_up/data/entities/user.dart';
 
 class UserModel extends User {
-  UserModel(
-      {required super.id,
-      required super.firstName,
-      required super.lastName,
-      required super.email});
+  UserModel({
+    required super.id,
+    required super.firstName,
+    required super.lastName,
+    required super.email,
+    super.profileImageUrl,
+    super.city,
+    super.danceStyle,
+    super.danceLevel,
+    super.bio,
+    super.username,
+    super.spokenLanguages,
+    super.isOnline,
+    super.isSeekingDancePartner,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -13,6 +23,15 @@ class UserModel extends User {
       firstName: json['firstName'],
       lastName: json['lastName'],
       email: json['email'],
+      profileImageUrl: json['profileImageUrl'],
+      city: json['city'],
+      danceStyle: List<String>.from(json['danceStyle'] ?? []),
+      danceLevel: json['danceLevel'],
+      bio: json['bio'],
+      username: json['username'],
+      spokenLanguages: List<String>.from(json['spokenLanguages'] ?? []),
+      isOnline: json['isOnline'],
+      isSeekingDancePartner: json['isSeekingDancePartner'],
     );
   }
 
@@ -22,6 +41,15 @@ class UserModel extends User {
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
+      'profileImageUrl': profileImageUrl,
+      'city': city,
+      'danceStyle': danceStyle,
+      'danceLevel': danceLevel,
+      'bio': bio,
+      'username': username,
+      'spokenLanguages': spokenLanguages,
+      'isOnline': isOnline,
+      'isSeekingDancePartner': isSeekingDancePartner,
     };
   }
 
@@ -32,6 +60,15 @@ class UserModel extends User {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      profileImageUrl: user.profileImageUrl,
+      city: user.city,
+      danceStyle: user.danceStyle,
+      danceLevel: user.danceLevel,
+      bio: user.bio,
+      username: user.username,
+      spokenLanguages: user.spokenLanguages,
+      isOnline: user.isOnline,
+      isSeekingDancePartner: user.isSeekingDancePartner,
     );
   }
 }
