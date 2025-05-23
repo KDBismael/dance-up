@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final CustomButtonType type;
   final bool isDisabled;
+  final bool isLoading;
   final Color? disabledColor;
   final Color? disabledTextColor;
 
@@ -29,6 +30,7 @@ class CustomButton extends StatelessWidget {
     this.isDisabled = false,
     this.disabledColor = AppColors.blackGray,
     this.disabledTextColor = Colors.white,
+    this.isLoading = false,
   });
 
   @override
@@ -61,7 +63,16 @@ class CustomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(text, style: effectiveTextStyle),
+              isLoading
+                  ? SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: effectiveTextColor,
+                      ),
+                    )
+                  : Text(text, style: effectiveTextStyle),
             ],
           ),
         );
@@ -77,7 +88,16 @@ class CustomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(text, style: effectiveTextStyle),
+              isLoading
+                  ? SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: effectiveTextColor,
+                      ),
+                    )
+                  : Text(text, style: effectiveTextStyle),
             ],
           ),
         );
@@ -94,7 +114,16 @@ class CustomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(text, style: effectiveTextStyle),
+              isLoading
+                  ? SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: effectiveTextColor,
+                      ),
+                    )
+                  : Text(text, style: effectiveTextStyle),
             ],
           ),
         );

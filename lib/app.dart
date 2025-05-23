@@ -47,8 +47,15 @@ class _HomePageState extends State<HomePage> {
         () => IndexedStack(
           index: NavigationController.to.currentIndex.value,
           children: [
-            const Center(child: Text('Home')),
-            Profile(),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  authPresenter.signOut();
+                },
+                child: const Text('Home'),
+              ),
+            ),
+            const Profile(),
           ],
         ),
       ),

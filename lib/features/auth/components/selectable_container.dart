@@ -1,42 +1,43 @@
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class SelectableContainer extends StatelessWidget {
-  SelectableContainer({
+  const SelectableContainer({
     super.key,
     required this.text,
+    this.isSelected = false,
+    this.onSelect,
   });
   final String text;
-
-  var isSelected = false.obs;
+  final void Function(String)? onSelect;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => GestureDetector(
-        onTap: () {
-          isSelected.value = !isSelected.value;
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 13),
-          decoration: BoxDecoration(
-            color: isSelected.value
-                ? AppColors.accent.withOpacity(0.8)
-                : AppColors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: isSelected.value ? AppColors.accent : AppColors.gray,
-              width: 1,
-            ),
+    return GestureDetector(
+      onTap: () {
+        if (onSelect != null) onSelect!(text);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
+        decoration: BoxDecoration(
+          color:
+              isSelected ? AppColors.accent.withOpacity(0.8) : AppColors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected ? AppColors.accent : AppColors.gray,
+            width: 1,
           ),
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: isSelected.value ? AppColors.white : AppColors.black,
-                ),
-          ),
+        ),
+        child: Text(
+          text,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: isSelected ? AppColors.white : AppColors.black,
+              ),
         ),
       ),
     );

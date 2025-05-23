@@ -13,6 +13,7 @@ class AuthPresenter extends GetxController {
   AuthPresenter(this.repository, this.profileRepository);
 
   final RxBool isLoading = false.obs;
+  Rx<OnboardingSteps> currentOnboardingStep = OnboardingSteps.city.obs;
   final RxString? errorMessage = RxString('');
 
   Future<void> signUp({
@@ -74,9 +75,27 @@ class AuthPresenter extends GetxController {
         print(failure.message);
       },
       (user) {
-        print(user.toJson());
         isLoading.value = false;
+        onNextOnboardingStep();
       },
     );
+  }
+
+  void onNextOnboardingStep() {
+    if (currentOnboardingStep.value == OnboardingSteps.city) {
+      currentOnboardingStep.value = OnboardingSteps.danceStyle;
+    } else if (currentOnboardingStep.value == OnboardingSteps.danceStyle) {
+      currentOnboardingStep.value = OnboardingSteps.danceLevel;
+    } else {
+      Get.offAll(() => const HomePage(title: 'Dance Up'));
+    }
+  }
+
+  void onPreviousOnboardingStep() {
+    if (currentOnboardingStep.value == OnboardingSteps.danceLevel) {
+      currentOnboardingStep.value = OnboardingSteps.danceStyle;
+    } else if (currentOnboardingStep.value == OnboardingSteps.danceStyle) {
+      currentOnboardingStep.value = OnboardingSteps.city;
+    }
   }
 }
