@@ -1,11 +1,13 @@
 import 'package:dance_up/core/components/base_widget_with_gradient.dart';
+import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/profile/components/profile_item.dart';
 import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  Profile({super.key});
+  final authPresenter = Get.find<AuthPresenter>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +27,17 @@ class Profile extends StatelessWidget {
                       NetworkImage("https://example.com/profile_image.jpg"),
                 ),
                 const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("User Name",
-                        style: Theme.of(context).textTheme.titleLarge),
-                    const SizedBox(height: 4),
-                    const Text("jaydon92i@gmail.com")
-                  ],
+                Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          "${authPresenter.user.value?.firstName} ${authPresenter.user.value?.lastName}",
+                          style: Theme.of(context).textTheme.titleLarge),
+                      const SizedBox(height: 4),
+                      Text("${authPresenter.user.value?.email}")
+                    ],
+                  ),
                 )
               ],
             ),

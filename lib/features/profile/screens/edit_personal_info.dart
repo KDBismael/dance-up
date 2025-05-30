@@ -1,8 +1,10 @@
 import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/core/constants/global_constant.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/auth/components/custom_text_field.dart';
-import 'package:dance_up/features/auth/components/selectable_container.dart';
+import 'package:dance_up/features/auth/sign_up_onboarding/sign_up_onboarding.dart';
 import 'package:dance_up/features/profile/components/base_profile_sub_page.dart';
 import 'package:dance_up/features/profile/components/edit_info_item.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:get/get.dart';
 
 class EditPersonalInfo extends StatelessWidget {
   EditPersonalInfo({super.key});
+  final authPresenter = Get.find<AuthPresenter>();
 
   final items = [
     "Beginner",
@@ -21,6 +24,11 @@ class EditPersonalInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bio = authPresenter.user.value!.bio;
+    final firstName = authPresenter.user.value!.firstName;
+    final lastName = authPresenter.user.value!.lastName;
+    final userName = authPresenter.user.value!.username;
+
     return BaseProfileSubPage(
       appBarTitle: "Personnal information",
       child: Column(
@@ -42,63 +50,63 @@ class EditPersonalInfo extends StatelessWidget {
             onTap: () {
               customModalBottomSheet(
                 context,
-                const EditInputModalBody(
+                EditInputModalBody(
                   title: "Edit your Bio",
                   hintText: 'bio',
-                  value: "Salsa lover, dancing for 5 years!",
+                  value: bio,
                 ),
               );
             },
             title: "Bio",
-            subtitle: "Salsa lover, dancing for 5 years!",
+            subtitle: bio ?? '...',
           ),
           const SizedBox(height: 24),
           EditInfoItem(
             onTap: () {
               customModalBottomSheet(
                 context,
-                const EditInputModalBody(
+                EditInputModalBody(
                   title: "Edit your first name",
                   hintText: 'First name',
-                  value: "Jaydon",
+                  value: firstName,
                 ),
               );
             },
             title: "First name",
-            subtitle: "Jaydon",
+            subtitle: firstName,
           ),
           const SizedBox(height: 24),
           EditInfoItem(
             onTap: () {
               customModalBottomSheet(
                 context,
-                const EditInputModalBody(
+                EditInputModalBody(
                   title: "Edit your last name",
                   hintText: 'last name',
-                  value: "Mango",
+                  value: lastName,
                 ),
               );
             },
             title: "Last name",
-            subtitle: "Mango",
+            subtitle: lastName,
           ),
           const SizedBox(height: 24),
           EditInfoItem(
             onTap: () {
               customModalBottomSheet(
                 context,
-                const EditInputModalBody(
+                EditInputModalBody(
                   title: "Edit your username",
                   hintText: 'Username',
-                  value: "@salsaking21",
+                  value: userName,
                 ),
               );
             },
             title: "Username",
-            subtitle: "@salsaking21",
+            subtitle: "@${userName ?? '...'}",
           ),
           const SizedBox(height: 24),
-          Text("Dance Level",
+          Text("Dance level",
               style: Theme.of(context)
                   .textTheme
                   .labelMedium
@@ -111,13 +119,12 @@ class EditPersonalInfo extends StatelessWidget {
               onChanged: (value) {
                 danceLevel.value = value!;
               },
-              selectedValue:
-                  danceLevel.value.isNotEmpty ? danceLevel.value : null,
+              selectedValue: authPresenter.user.value!.danceLevel,
             ),
           ),
           const SizedBox(height: 24),
           Text(
-            "Dance Style",
+            "Dance style",
             style: Theme.of(context)
                 .textTheme
                 .labelMedium
@@ -128,22 +135,36 @@ class EditPersonalInfo extends StatelessWidget {
             onTap: () {
               customModalBottomSheet(
                 context,
-                const DanceStyleModalSelectionBody(),
+                DanceStyleModalSelectionBody(),
               );
             },
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                EditLabel(title: "Style 1"),
-                SizedBox(width: 8),
-                EditLabel(title: "Batchatatat"),
-              ],
-            ),
+            child: authPresenter.user.value!.danceStyle!.isEmpty
+                ? const EditLabel(title: 'Click to choose')
+                : SizedBox(
+                    height: 36,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: authPresenter.user.value!.danceStyle?.length,
+                      itemBuilder: (context, index) {
+                        final text =
+                            authPresenter.user.value!.danceStyle?[index];
+                        return EditLabel(title: text ?? '');
+                      },
+                    ),
+                  ),
+            // child: const Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     EditLabel(title: "Style 1"),
+            //     SizedBox(width: 8),
+            //     EditLabel(title: "Batchatatat"),
+            //   ],
+            // ),
           ),
           const SizedBox(height: 24),
           Text(
-            "Language",
+            "Spoken language",
             style: Theme.of(context)
                 .textTheme
                 .labelMedium
@@ -154,26 +175,49 @@ class EditPersonalInfo extends StatelessWidget {
             onTap: () {
               customModalBottomSheet(
                 context,
-                const LanguageSelectionModalBody(),
+                LanguageSelectionModalBody(),
               );
             },
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                EditLabel(
-                  title: "English",
-                  textColor: AppColors.primary,
-                  backgroundColor: AppColors.background,
-                ),
-                SizedBox(width: 8),
-                EditLabel(
-                  title: "French",
-                  textColor: AppColors.primary,
-                  backgroundColor: AppColors.background,
-                ),
-              ],
-            ),
+            child: authPresenter.user.value!.spokenLanguages!.isEmpty
+                ? const EditLabel(
+                    title: 'Click to choose',
+                    textColor: AppColors.primary,
+                    backgroundColor: AppColors.background,
+                  )
+                : SizedBox(
+                    height: 36,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          authPresenter.user.value!.spokenLanguages?.length,
+                      itemBuilder: (context, index) {
+                        final text =
+                            authPresenter.user.value!.spokenLanguages?[index];
+                        return EditLabel(
+                          title: text ?? '',
+                          textColor: AppColors.primary,
+                          backgroundColor: AppColors.background,
+                        );
+                      },
+                    ),
+                  ),
+            // child: const Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     EditLabel(
+            //       title: "English",
+            //       textColor: AppColors.primary,
+            //       backgroundColor: AppColors.background,
+            //     ),
+            //     SizedBox(width: 8),
+            //     EditLabel(
+            //       title: "French",
+            //       textColor: AppColors.primary,
+            //       backgroundColor: AppColors.background,
+            //     ),
+            //   ],
+            // ),
           ),
         ],
       ),
@@ -190,6 +234,7 @@ class EditPersonalInfo extends StatelessWidget {
       ),
       barrierColor: const Color(0xFFD9D9D9).withOpacity(0.5),
       context: context,
+      isScrollControlled: true,
       builder: (context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -202,7 +247,7 @@ class EditPersonalInfo extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: child,
+              child: SingleChildScrollView(child: child),
             ),
           ],
         );
@@ -212,12 +257,16 @@ class EditPersonalInfo extends StatelessWidget {
 }
 
 class DanceStyleModalSelectionBody extends StatelessWidget {
-  const DanceStyleModalSelectionBody({
+  DanceStyleModalSelectionBody({
     super.key,
   });
+  var selectedStyle = <String>[].obs;
+  final authPresenter = Get.find<AuthPresenter>();
 
   @override
   Widget build(BuildContext context) {
+    final userSelectedStyle = authPresenter.user.value?.danceStyle ?? [];
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -228,21 +277,34 @@ class DanceStyleModalSelectionBody extends StatelessWidget {
             "Choose your favorite dance style to connect with like-minded dancers!",
             style: Theme.of(context).textTheme.labelSmall),
         const SizedBox(height: 24),
-        Row(
-          children: [
-            SelectableContainer(text: "style 1"),
-            const SizedBox(width: 8),
-            SelectableContainer(text: "style 2"),
-          ],
+        Obx(
+          () => DanceStyle(
+            list: danceStyleList,
+            styleSelectedList: [...selectedStyle.value, ...userSelectedStyle],
+            onChanged: (val) {
+              if (selectedStyle.contains(val)) {
+                selectedStyle.remove(val);
+              } else {
+                selectedStyle.add(val);
+              }
+            },
+          ),
         ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            SelectableContainer(text: "style 1"),
-            const SizedBox(width: 8),
-            SelectableContainer(text: "style 2"),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     SelectableContainer(text: "style 1"),
+        //     const SizedBox(width: 8),
+        //     SelectableContainer(text: "style 2"),
+        //   ],
+        // ),
+        // const SizedBox(height: 8),
+        // Row(
+        //   children: [
+        //     SelectableContainer(text: "style 1"),
+        //     const SizedBox(width: 8),
+        //     SelectableContainer(text: "style 2"),
+        //   ],
+        // ),
         const SizedBox(height: 48),
         CustomButton(text: "Submit", onPressed: () {}),
         const SizedBox(height: 16),
@@ -269,12 +331,18 @@ class DanceStyleModalSelectionBody extends StatelessWidget {
 }
 
 class LanguageSelectionModalBody extends StatelessWidget {
-  const LanguageSelectionModalBody({
+  LanguageSelectionModalBody({
     super.key,
   });
 
+  final authPresenter = Get.find<AuthPresenter>();
+  var selectedLanguage = <String>[].obs;
+
   @override
   Widget build(BuildContext context) {
+    final userSelectedLanguage =
+        authPresenter.user.value?.spokenLanguages ?? [];
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -285,13 +353,29 @@ class LanguageSelectionModalBody extends StatelessWidget {
             "Choose your spoken languages to Helps with international connections!",
             style: Theme.of(context).textTheme.labelSmall),
         const SizedBox(height: 24),
-        Row(
-          children: [
-            SelectableContainer(text: "English"),
-            const SizedBox(width: 8),
-            SelectableContainer(text: "French"),
-          ],
+        Obx(
+          () => DanceStyle(
+            list: spokenLanguagesList,
+            styleSelectedList: [
+              ...selectedLanguage.value,
+              ...userSelectedLanguage
+            ],
+            onChanged: (val) {
+              if (selectedLanguage.contains(val)) {
+                selectedLanguage.remove(val);
+              } else {
+                selectedLanguage.add(val);
+              }
+            },
+          ),
         ),
+        // Row(
+        //   children: [
+        //     SelectableContainer(text: "English"),
+        //     const SizedBox(width: 8),
+        //     SelectableContainer(text: "French"),
+        //   ],
+        // ),
         const SizedBox(height: 48),
         CustomButton(text: "Submit", onPressed: () {}),
         const SizedBox(height: 16),

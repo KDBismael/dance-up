@@ -1,4 +1,6 @@
 import 'package:dance_up/app.dart';
+import 'package:dance_up/core/services/get_storage.dart';
+import 'package:dance_up/data/models/user_model.dart';
 import 'package:dance_up/data/repositories/autth.dart';
 import 'package:dance_up/data/repositories/profile.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
@@ -12,9 +14,17 @@ class AuthPresenter extends GetxController {
 
   AuthPresenter(this.repository, this.profileRepository);
 
-  final RxBool isLoading = false.obs;
+  RxBool isLoading = false.obs;
   Rx<OnboardingSteps> currentOnboardingStep = OnboardingSteps.city.obs;
-  final RxString? errorMessage = RxString('');
+  RxString? errorMessage = RxString('');
+  Rx<UserModel?> user = Rx<UserModel?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    user.value = getPersistedUserData();
+    ever(user, (user) => persistUserData(user?.toJson()));
+  }
 
   Future<void> signUp({
     required BuildContext context,
@@ -32,7 +42,8 @@ class AuthPresenter extends GetxController {
         errorMessage?.value = failure.message;
         print(failure.message);
       },
-      (user) {
+      (userData) {
+        user.value = userData;
         isLoading.value = false;
         errorMessage?.value = "";
         Get.offAll(() => const SignUpOnboarding());
@@ -52,7 +63,8 @@ class AuthPresenter extends GetxController {
         errorMessage?.value = failure.message;
         print(failure.message);
       },
-      (user) {
+      (userData) {
+        user.value = userData;
         isLoading.value = false;
         errorMessage?.value = "";
         Get.offAll(() => const HomePage(title: "Dance App"));
@@ -62,6 +74,7 @@ class AuthPresenter extends GetxController {
 
   Future<void> signOut() async {
     await repository.signOut();
+    user.value = null;
     Get.offAll(() => const AuthScreen());
   }
 

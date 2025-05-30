@@ -13,6 +13,7 @@ class InitialBinding extends Bindings {
     Get.lazyPut<ProfileRepository>(() => Profile(), fenix: true);
     Get.lazyPut<AuthPresenter>(() => AuthPresenter(Get.find(), Get.find()),
         fenix: true);
-    Get.lazyPut<NavigationController>(() => NavigationController());
+    Get.lazyPut<NavigationController>(() => NavigationController(),
+        fenix: true);
   }
 }

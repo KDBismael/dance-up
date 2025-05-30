@@ -15,7 +15,7 @@ const danceLevelList = [
   'Advanced',
   'Professional',
 ];
-final List<String> cityList = <String>[
+final cityList = [
   "New York",
   "Los Angeles",
   "Chicago",
@@ -23,3 +23,4 @@ final List<String> cityList = <String>[
   "Phoenix",
   "Philadelphia"
 ];
+const spokenLanguagesList = ['English', 'French', 'Spanish'];

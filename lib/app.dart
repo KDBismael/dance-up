@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 child: const Text('Home'),
               ),
             ),
-            const Profile(),
+            Profile(),
           ],
         ),
       ),
