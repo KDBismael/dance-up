@@ -87,8 +87,9 @@ class AuthPresenter extends GetxController {
         errorMessage?.value = failure.message;
         print(failure.message);
       },
-      (user) {
+      (userData) {
         isLoading.value = false;
+        user.value = userData;
         onNextOnboardingStep();
       },
     );
@@ -110,5 +111,21 @@ class AuthPresenter extends GetxController {
     } else if (currentOnboardingStep.value == OnboardingSteps.danceStyle) {
       currentOnboardingStep.value = OnboardingSteps.city;
     }
+  }
+
+  Future<void> updateProfile(Map<String, dynamic> data) async {
+    isLoading.value = true;
+    final res = await profileRepository.updateProfile(data);
+    res.fold(
+      (failure) {
+        isLoading.value = false;
+        errorMessage?.value = failure.message;
+        print(failure.message);
+      },
+      (userData) {
+        user.value = userData;
+        isLoading.value = false;
+      },
+    );
   }
 }

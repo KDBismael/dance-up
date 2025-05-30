@@ -59,7 +59,11 @@ class CustomButton extends StatelessWidget {
             side: BorderSide(color: effectiveBackground),
             padding: padding,
           ),
-          onPressed: isDisabled ? null : onPressed,
+          onPressed: isDisabled
+              ? null
+              : isLoading
+                  ? () {}
+                  : onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -84,7 +88,11 @@ class CustomButton extends StatelessWidget {
             backgroundColor: effectiveBackground,
             padding: padding,
           ),
-          onPressed: isDisabled ? null : onPressed,
+          onPressed: isDisabled
+              ? null
+              : isLoading
+                  ? () {}
+                  : onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -110,7 +118,11 @@ class CustomButton extends StatelessWidget {
             shape: shape,
             padding: padding,
           ),
-          onPressed: isDisabled ? null : onPressed,
+          onPressed: isDisabled
+              ? null
+              : isLoading
+                  ? () {}
+                  : onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
