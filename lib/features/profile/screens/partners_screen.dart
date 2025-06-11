@@ -1,5 +1,6 @@
 import 'package:dance_up/features/profile/components/base_profile_sub_page.dart';
 import 'package:dance_up/features/profile/components/follower_users_card.dart';
+import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 
 class PartnersScreen extends StatelessWidget {
@@ -31,6 +32,14 @@ class PartnersScreen extends StatelessWidget {
                     imageLink: 'https://i.pravatar.cc/300',
                     buttonText: 'Remove',
                     onButtonPressed: () {},
+                    onProfileTapped: () {
+                      // Navigate to partner's profile
+                      Navigator.pushNamed(
+                        context,
+                        Routes.guestProfile,
+                        arguments: 'smith12',
+                      );
+                    },
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {

@@ -10,6 +10,7 @@ class FollowerUsersCard extends StatelessWidget {
     required this.buttonText,
     this.onButtonPressed,
     this.buttonColor = AppColors.red,
+    this.onProfileTapped,
   });
 
   final String userName;
@@ -18,37 +19,41 @@ class FollowerUsersCard extends StatelessWidget {
   final String buttonText;
   final VoidCallback? onButtonPressed;
   final Color buttonColor;
+  final VoidCallback? onProfileTapped;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(imageLink),
-            ),
-            const SizedBox(width: 13),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(fullName,
+        GestureDetector(
+          onTap: onProfileTapped,
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 25,
+                backgroundImage: NetworkImage(imageLink),
+              ),
+              const SizedBox(width: 13),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(fullName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: AppColors.black)),
+                  Text(
+                    "@$userName",
                     style: Theme.of(context)
                         .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: AppColors.black)),
-                Text(
-                  "@$userName",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                      ?.copyWith(color: AppColors.blackGray),
-                ),
-              ],
-            )
-          ],
+                        .labelSmall
+                        ?.copyWith(color: AppColors.blackGray),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
         OutlinedButton(
           onPressed: onButtonPressed,

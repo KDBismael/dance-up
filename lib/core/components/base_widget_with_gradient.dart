@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class BaseWidgetWithGradient extends StatelessWidget {
-  const BaseWidgetWithGradient(
-      {super.key, required this.children, this.gradientStopEnd = 0.2});
+  const BaseWidgetWithGradient({
+    super.key,
+    required this.children,
+    this.gradientStopEnd = 0.2,
+    this.gradientColor = const Color(0xFF673AB7),
+  });
 
   final List<Widget> children;
   final double gradientStopEnd;
+  final Color gradientColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class BaseWidgetWithGradient extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               stops: [0, gradientStopEnd],
-              colors: const [Color(0xFF673AB7), Colors.white]),
+              colors: [gradientColor, Colors.white]),
         ),
         child: Column(
           children: [
