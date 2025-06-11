@@ -7,4 +7,6 @@ class Routes {
   static String favoriteDanceVenue = "/favorite_dance_venue";
   static String privacyControls = "/privacy_controls";
   static String partnersScreen = "/partners_screen";
+  static String followingsScreen = "/followings_screen";
+  static String followersScreen = "/followers_screen";
 }

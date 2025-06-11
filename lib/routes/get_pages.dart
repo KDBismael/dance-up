@@ -1,6 +1,8 @@
 import 'package:dance_up/features/profile/screens/dance_activity_info.dart';
 import 'package:dance_up/features/profile/screens/edit_personal_info.dart';
 import 'package:dance_up/features/profile/screens/favorite_dance_venue.dart';
+import 'package:dance_up/features/profile/screens/followers_screen.dart';
+import 'package:dance_up/features/profile/screens/following_screen.dart';
 import 'package:dance_up/features/profile/screens/partners_screen.dart';
 import 'package:dance_up/features/profile/screens/privacy_controls.dart';
 import 'package:flutter/material.dart';
@@ -32,5 +34,13 @@ final getPages = [
   GetPage(
     name: Routes.partnersScreen,
     page: () => const PartnersScreen(),
+  ),
+  GetPage(
+    name: Routes.followingsScreen,
+    page: () => const FollowingsScreen(),
+  ),
+  GetPage(
+    name: Routes.followersScreen,
+    page: () => const FollowersScreen(),
   ),
 ];

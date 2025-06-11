@@ -83,7 +83,9 @@ class Profile extends StatelessWidget {
                           child: FollowerButton(
                             count: "160k",
                             title: "Followers",
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(Routes.followersScreen);
+                            },
                           ),
                         ),
                         const VerticalDivider(
@@ -97,7 +99,9 @@ class Profile extends StatelessWidget {
                           child: FollowerButton(
                             count: "10",
                             title: "Following",
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(Routes.followingsScreen);
+                            },
                           ),
                         ),
                       ],
