@@ -34,8 +34,7 @@ class EditPersonalInfo extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 60,
-                  backgroundImage:
-                      NetworkImage("https://example.com/profile_image.jpg"),
+                  backgroundImage: NetworkImage("https://i.pravatar.cc/300"),
                 ),
               ],
             ),

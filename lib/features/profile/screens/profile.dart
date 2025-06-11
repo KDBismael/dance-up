@@ -1,4 +1,5 @@
 import 'package:dance_up/core/components/base_widget_with_gradient.dart';
+import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/profile/components/profile_item.dart';
 import 'package:dance_up/routes/get_pages.dart';
@@ -15,36 +16,100 @@ class Profile extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Profile", style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: 24),
-            Row(
+            // Text("Profile", style: Theme.of(context).textTheme.bodyMedium),
+            // const SizedBox(height: 24),
+            const Stack(
               children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage:
-                      NetworkImage("https://example.com/profile_image.jpg"),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage("https://i.pravatar.cc/300"),
                 ),
-                const SizedBox(width: 16),
-                Obx(
-                  () => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          "${authPresenter.user.value?.firstName} ${authPresenter.user.value?.lastName}",
-                          style: Theme.of(context).textTheme.titleLarge),
-                      const SizedBox(height: 4),
-                      Text("${authPresenter.user.value?.email}")
-                    ],
+                Positioned(
+                  bottom: 10,
+                  right: 5,
+                  child: CircleAvatar(
+                    radius: 8,
+                    backgroundColor: AppColors.red,
                   ),
-                )
+                ),
               ],
+            ),
+            Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                      "${authPresenter.user.value?.firstName} ${authPresenter.user.value?.lastName}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge
+                          ?.copyWith(color: AppColors.black)),
+                  // const SizedBox(height: 4),
+                  Text(
+                    "${authPresenter.user.value?.bio ?? 'No bio'}",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: AppColors.blackGray),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    height: 61,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: FollowerButton(
+                            count: "5",
+                            title: "Partners",
+                            onTap: () {
+                              Get.toNamed(Routes.partnersScreen);
+                            },
+                          ),
+                        ),
+                        const VerticalDivider(
+                          width: 24,
+                          color: Color(0xFFD9D9D9),
+                          thickness: 1,
+                          indent: 8,
+                          endIndent: 0,
+                        ),
+                        Expanded(
+                          child: FollowerButton(
+                            count: "160k",
+                            title: "Followers",
+                            onTap: () {},
+                          ),
+                        ),
+                        const VerticalDivider(
+                          color: Color(0xFFD9D9D9),
+                          width: 24,
+                          thickness: 1,
+                          indent: 8,
+                          endIndent: 0,
+                        ),
+                        Expanded(
+                          child: FollowerButton(
+                            count: "10",
+                            title: "Following",
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
       ),
-      const SizedBox(height: 24),
+      const SizedBox(height: 13),
       Expanded(
         child: Container(
           width: Get.width,
@@ -140,5 +205,43 @@ class Profile extends StatelessWidget {
         ),
       )
     ]);
+  }
+}
+
+class FollowerButton extends StatelessWidget {
+  const FollowerButton({
+    required this.count,
+    this.onTap,
+    required this.title,
+    super.key,
+  });
+
+  final String count;
+  final VoidCallback? onTap;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Text(
+            count,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: AppColors.black),
+          ),
+          Text(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .labelSmall
+                ?.copyWith(color: AppColors.blackGray),
+          )
+        ],
+      ),
+    );
   }
 }
