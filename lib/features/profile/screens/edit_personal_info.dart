@@ -1,4 +1,5 @@
 import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/constants/global_constant.dart';
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
@@ -19,7 +20,6 @@ class EditPersonalInfo extends StatelessWidget {
     return BaseProfileSubPage(
       appBarTitle: "Personnal information",
       child: Obx(() {
-        ;
         final bio = authPresenter.user.value!.bio;
         final firstName = authPresenter.user.value!.firstName;
         final lastName = authPresenter.user.value!.lastName;
@@ -42,9 +42,9 @@ class EditPersonalInfo extends StatelessWidget {
             const SizedBox(height: 40),
             EditInfoItem(
               onTap: () {
-                customModalBottomSheet(
-                  context,
-                  EditInputModalBody(
+                showCustomModalBottomSheet(
+                  context: context,
+                  child: EditInputModalBody(
                     title: "Edit your Bio",
                     hintText: 'bio',
                     value: bio,
@@ -60,9 +60,9 @@ class EditPersonalInfo extends StatelessWidget {
             const SizedBox(height: 24),
             EditInfoItem(
               onTap: () {
-                customModalBottomSheet(
-                  context,
-                  EditInputModalBody(
+                showCustomModalBottomSheet(
+                  context: context,
+                  child: EditInputModalBody(
                     title: "Edit your first name",
                     hintText: 'First name',
                     value: firstName,
@@ -78,9 +78,9 @@ class EditPersonalInfo extends StatelessWidget {
             const SizedBox(height: 24),
             EditInfoItem(
               onTap: () {
-                customModalBottomSheet(
-                  context,
-                  EditInputModalBody(
+                showCustomModalBottomSheet(
+                  context: context,
+                  child: EditInputModalBody(
                     title: "Edit your last name",
                     hintText: 'last name',
                     value: lastName,
@@ -96,9 +96,9 @@ class EditPersonalInfo extends StatelessWidget {
             const SizedBox(height: 24),
             EditInfoItem(
               onTap: () {
-                customModalBottomSheet(
-                  context,
-                  EditInputModalBody(
+                showCustomModalBottomSheet(
+                  context: context,
+                  child: EditInputModalBody(
                     title: "Edit your username",
                     hintText: 'Username',
                     value: userName,
@@ -137,9 +137,9 @@ class EditPersonalInfo extends StatelessWidget {
             const SizedBox(height: 8),
             GestureDetector(
               onTap: () {
-                customModalBottomSheet(
-                  context,
-                  DanceStyleModalSelectionBody(),
+                showCustomModalBottomSheet(
+                  context: context,
+                  child: DanceStyleModalSelectionBody(),
                 );
               },
               child: authPresenter.user.value!.danceStyle!.isEmpty
@@ -180,9 +180,9 @@ class EditPersonalInfo extends StatelessWidget {
             const SizedBox(height: 8),
             GestureDetector(
               onTap: () {
-                customModalBottomSheet(
-                  context,
-                  LanguageSelectionModalBody(),
+                showCustomModalBottomSheet(
+                  context: context,
+                  child: LanguageSelectionModalBody(),
                 );
               },
               child: authPresenter.user.value!.spokenLanguages!.isEmpty
@@ -235,36 +235,36 @@ class EditPersonalInfo extends StatelessWidget {
     );
   }
 
-  Future<dynamic> customModalBottomSheet(BuildContext context, Widget child) {
-    return showModalBottomSheet(
-      backgroundColor: AppColors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
-      ),
-      barrierColor: const Color(0xFFD9D9D9).withOpacity(0.5),
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            Container(
-              height: 3,
-              width: 41,
-              color: const Color(0xFFE0DFE2),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: SingleChildScrollView(child: child),
-            ),
-          ],
-        );
-      },
-    );
-  }
+//   Future<dynamic> showCustomModalBottomSheet(BuildContext context, Widget child) {
+//     return showModalBottomSheet(
+//       backgroundColor: AppColors.white,
+//       shape: const RoundedRectangleBorder(
+//         borderRadius: BorderRadius.vertical(
+//           top: Radius.circular(16),
+//         ),
+//       ),
+//       barrierColor: const Color(0xFFD9D9D9).withOpacity(0.5),
+//       context: context,
+//       isScrollControlled: true,
+//       builder: (context) {
+//         return Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             const SizedBox(height: 8),
+//             Container(
+//               height: 3,
+//               width: 41,
+//               color: const Color(0xFFE0DFE2),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(20),
+//               child: SingleChildScrollView(child: child),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
 }
 
 class DanceStyleModalSelectionBody extends StatelessWidget {

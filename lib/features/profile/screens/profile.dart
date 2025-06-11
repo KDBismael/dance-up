@@ -112,7 +112,10 @@ class Profile extends StatelessWidget {
                     icon: Icons.social_distance_outlined,
                     title: 'Social Features',
                   ),
-                  const ProfileItem(
+                  ProfileItem(
+                    onTap: () {
+                      Get.toNamed(Routes.privacyControls);
+                    },
                     icon: Icons.privacy_tip_outlined,
                     title: 'Privacy Controls',
                   ),

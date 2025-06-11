@@ -18,7 +18,7 @@ class ProfileItem extends StatelessWidget {
               children: [
                 Icon(icon, size: 18),
                 const SizedBox(width: 10),
-                Text(title, style: Theme.of(context).textTheme.bodyMedium)
+                Text(title, style: Theme.of(context).textTheme.bodySmall)
               ],
             ),
             const Spacer(),

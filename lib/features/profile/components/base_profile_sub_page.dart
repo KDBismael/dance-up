@@ -1,9 +1,12 @@
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BaseProfileSubPage extends StatelessWidget {
-  const BaseProfileSubPage(
+  BaseProfileSubPage(
       {super.key, required this.child, required this.appBarTitle});
+  final authPresenter = Get.find<AuthPresenter>();
 
   final String appBarTitle;
   final Widget child;
@@ -25,8 +28,20 @@ class BaseProfileSubPage extends StatelessWidget {
             ],
           ),
           child: AppBar(
-            title: Text(appBarTitle,
-                style: Theme.of(context).textTheme.bodyMedium),
+            title: Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(appBarTitle,
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  if (authPresenter.isLoading.value)
+                    const SizedBox(
+                        height: 12,
+                        width: 12,
+                        child: CircularProgressIndicator())
+                ],
+              ),
+            ),
             backgroundColor: AppColors.white,
             centerTitle: false,
             // elevation: 5,
