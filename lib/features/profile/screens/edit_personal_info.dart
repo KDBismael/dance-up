@@ -331,22 +331,33 @@ class DanceStyleModalSelectionBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium
-                    ?.copyWith(color: AppColors.blackGray),
-              ),
-            ),
-          ],
+        const CancelButton(),
+      ],
+    );
+  }
+}
+
+class CancelButton extends StatelessWidget {
+  const CancelButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            "Cancel",
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium
+                ?.copyWith(color: AppColors.blackGray),
+          ),
         ),
       ],
     );
