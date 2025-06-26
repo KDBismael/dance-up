@@ -1204,6 +1204,40 @@ PODS:
     - Firebase/Firestore (= 11.10.0)
     - firebase_core
     - Flutter
+  - DKImagePickerController/Core (4.3.9):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.9)
+  - DKImagePickerController/PhotoGallery (4.3.9):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.9)
+  - DKPhotoGallery (0.0.19):
+    - DKPhotoGallery/Core (= 0.0.19)
+    - DKPhotoGallery/Model (= 0.0.19)
+    - DKPhotoGallery/Preview (= 0.0.19)
+    - DKPhotoGallery/Resource (= 0.0.19)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
+    - Flutter
   - Firebase/Auth (11.10.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 11.10.0)
@@ -1401,11 +1435,16 @@ PODS:
     - Flutter
     - FlutterMacOS
   - RecaptchaInterop (101.0.0)
+  - SDWebImage (5.21.1):
+    - SDWebImage/Core (= 5.21.1)
+  - SDWebImage/Core (5.21.1)
   - sign_in_with_apple (0.0.1):
     - Flutter
+  - SwiftyGif (5.4.5)
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
@@ -1418,6 +1457,8 @@ SPEC REPOS:
     - abseil
     - AppAuth
     - BoringSSL-GRPC
+    - DKImagePickerController
+    - DKPhotoGallery
     - Firebase
     - FirebaseAppCheckInterop
     - FirebaseAuth
@@ -1437,10 +1478,14 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - RecaptchaInterop
+    - SDWebImage
+    - SwiftyGif
 
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -1459,6 +1504,9 @@ SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   BoringSSL-GRPC: dded2a44897e45f28f08ae87a55ee4bcd19bc508
   cloud_firestore: aef3217af294cd35afda47e63112d306f4c9a2e2
+  DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
+  DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
+  file_picker: 15fd9539e4eb735dc54bae8c0534a7a9511a03de
   Firebase: 1fe1c0a7d9aaea32efe01fbea5f0ebd8d70e53a2
   firebase_auth: e37065f3f80ff90580c13ad0e5a48e3bb8d2ad77
   firebase_core: 432718558359a8c08762151b5f49bb0f093eb6e0
@@ -1483,7 +1531,9 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
+  SDWebImage: f29024626962457f3470184232766516dee8dfea
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 

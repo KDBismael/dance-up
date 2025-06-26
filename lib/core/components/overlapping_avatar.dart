@@ -1,3 +1,4 @@
+import 'package:dance_up/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class OverlappingAvatars extends StatelessWidget {
@@ -44,7 +45,7 @@ class OverlappingAvatars extends StatelessWidget {
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: radius - 2,
-                  backgroundColor: Colors.orange,
+                  backgroundColor: AppColors.secondary,
                   child: Text(
                     '+$extraCount',
                     style: Theme.of(context)

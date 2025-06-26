@@ -4,6 +4,7 @@ import 'package:dance_up/dependencies.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/onboarding/meet_dancers_screnn.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
+import 'package:dance_up/features/events/screens/events.dart';
 import 'package:dance_up/features/navigation/bottom_navigation_bar.dart';
 import 'package:dance_up/features/navigation/navigation_controller.dart';
 import 'package:dance_up/features/profile/screens/profile.dart';
@@ -47,14 +48,15 @@ class _HomePageState extends State<HomePage> {
         () => IndexedStack(
           index: NavigationController.to.currentIndex.value,
           children: [
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  authPresenter.signOut();
-                },
-                child: const Text('Home'),
-              ),
-            ),
+            Events(),
+            // Center(
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       authPresenter.signOut();
+            //     },
+            //     child: const Text('Home'),
+            //   ),
+            // ),
             Profile(),
           ],
         ),

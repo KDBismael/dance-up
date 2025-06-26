@@ -27,9 +27,9 @@ class BottomNaBar extends StatelessWidget {
               NavigationController.to.changeIndex(value),
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home, color: AppColors.white),
-              label: 'Home',
+              icon: Icon(Icons.event_outlined),
+              selectedIcon: Icon(Icons.event, color: AppColors.white),
+              label: 'Events',
             ),
             NavigationDestination(
               icon: Icon(Icons.person_outline),
