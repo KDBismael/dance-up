@@ -1,3 +1,4 @@
+import 'package:dance_up/features/events/screens/events_details.dart';
 import 'package:dance_up/features/profile/screens/dance_activity_info.dart';
 import 'package:dance_up/features/profile/screens/edit_personal_info.dart';
 import 'package:dance_up/features/profile/screens/favorite_dance_venue.dart';
@@ -46,6 +47,10 @@ final getPages = [
   ),
   GetPage(
     name: Routes.guestProfile,
-    page: () => GuestProfile(), // Replace with actual guest profile screen
+    page: () => GuestProfile(),
+  ),
+  GetPage(
+    name: Routes.eventDetails,
+    page: () => const EventDetailsScreen(),
   ),
 ];

@@ -5,6 +5,7 @@ import 'package:dance_up/features/events/components/event_filter_modale_body.dar
 import 'package:dance_up/features/events/components/filter_chips.dart';
 import 'package:dance_up/features/events/components/rounded_button_icon.dart';
 import 'package:dance_up/features/events/components/sort_by_widget.dart';
+import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -99,19 +100,24 @@ class Events extends StatelessWidget {
                 itemCount: 5, // or your actual event count
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
                 itemBuilder: (context, index) {
-                  return EventCard(
-                    imageUrl:
-                        'https://dance-teacher.com/wp-content/uploads/2025/05/GettyImages-120022690.jpg',
-                    title: 'Dance Party III',
-                    timeAgo: '2 days ago',
-                    location: 'East Java',
-                    isPaid: true,
-                    onJoinPressed: () => print('Join $index'),
-                    participantCount: 22,
-                    participantAvatars: const [
-                      'https://i.pravatar.cc/300',
-                      'https://i.pravatar.cc/300'
-                    ],
+                  return GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.eventDetails);
+                    },
+                    child: EventCard(
+                      imageUrl:
+                          'https://dance-teacher.com/wp-content/uploads/2025/05/GettyImages-120022690.jpg',
+                      title: 'Dance Party III',
+                      timeAgo: '2 days ago',
+                      location: 'East Java',
+                      isPaid: true,
+                      onJoinPressed: () => print('Join $index'),
+                      participantCount: 22,
+                      participantAvatars: const [
+                        'https://i.pravatar.cc/300',
+                        'https://i.pravatar.cc/300'
+                      ],
+                    ),
                   );
                 },
               ),

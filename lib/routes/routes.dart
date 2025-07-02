@@ -10,4 +10,6 @@ class Routes {
   static String followingsScreen = "/followings_screen";
   static String followersScreen = "/followers_screen";
   static String guestProfile = "/guest_profile";
+
+  static String eventDetails = "/event_details";
 }
