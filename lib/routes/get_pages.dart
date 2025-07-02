@@ -51,6 +51,6 @@ final getPages = [
   ),
   GetPage(
     name: Routes.eventDetails,
-    page: () => const EventDetailsScreen(),
+    page: () => EventDetailsScreen(),
   ),
 ];
