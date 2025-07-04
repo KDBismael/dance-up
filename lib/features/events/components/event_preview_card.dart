@@ -1,3 +1,4 @@
+import 'package:dance_up/core/components/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class EventPreviewCard extends StatelessWidget {
@@ -20,82 +21,68 @@ class EventPreviewCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              "https://images.unsplash.com/photo-1592194996308-7b43878e84a6", // Replace with your asset or network image
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+          const SizedBox(height: 5),
+          Container(
+            height: 3,
+            width: 41,
+            color: const Color(0xFFE0DFE2),
           ),
-          const SizedBox(height: 12),
-
-          // "Paid Event" label
-          const Text(
-            "Paid Event",
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-
-          // Title
-          const Text(
-            "Dance Party II",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 4),
-
-          // Date
-          const Text(
-            "24 Jun 2025",
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey,
-            ),
-          ),
-
-          const SizedBox(height: 4),
-
-          // Category
-          const Text(
-            "Slasa",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-
-          const SizedBox(height: 12),
-
-          // Join Now Button
-          SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  key: UniqueKey(),
+                  "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
+                  height: 120,
+                  width: 160,
+                  fit: BoxFit.cover,
                 ),
               ),
-              child: const Text(
-                "Join Now",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Paid Event",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Text(
+                    "Dance Party II",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    "24 Jun 2025",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  const Text(
+                    "Slasa",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.deepPurple,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
+          const SizedBox(height: 20),
+          CustomButton(text: "Join Now", borderRadius: 50, onPressed: () {})
         ],
       ),
     );

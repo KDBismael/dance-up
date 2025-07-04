@@ -1,9 +1,12 @@
 import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/features/events/components/event_preview_card.dart';
+import 'package:dance_up/features/events/components/review_modal_body.dart';
 import 'package:dance_up/features/events/components/sort_by_widget.dart';
 import 'package:dance_up/features/profile/components/follower_users_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 enum Tabs {
   photos,
@@ -38,6 +41,7 @@ class EventDetailsScreen extends StatelessWidget {
   EventDetailsScreen({super.key});
   var selectedTab = Tabs.photos.obs;
   var selectedSortBy = AttendeesSortBy.all.obs;
+  var showPreview = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +75,21 @@ class EventDetailsScreen extends StatelessWidget {
             backgroundColor: AppColors.white,
             centerTitle: false,
             // elevation: 5,
-            actions: const [
-              Icon(Icons.location_on_outlined),
-              SizedBox(width: 16),
-              Icon(Icons.share),
-              SizedBox(width: 16),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  showCustomModalBottomSheet(
+                    context: context,
+                    child: ReviewModaleBody(),
+                  );
+                },
+                icon: const Icon(Icons.location_on_outlined),
+              ),
+              IconButton(
+                onPressed: share,
+                icon: const Icon(Icons.share),
+              ),
+              const SizedBox(width: 5),
             ],
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -92,247 +106,234 @@ class EventDetailsScreen extends StatelessWidget {
         final haveReviews = true;
 
         return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(11),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(-4, 0),
-                          blurRadius: 4,
-                          color: AppColors.black.withOpacity(0.3),
-                          spreadRadius: 0,
-                          blurStyle: BlurStyle.outer),
-                      BoxShadow(
-                          offset: const Offset(4, 0),
-                          blurRadius: 4,
-                          color: AppColors.black.withOpacity(0.3),
-                          spreadRadius: 0,
-                          blurStyle: BlurStyle.outer),
-                      // BoxShadow(
-                      //     offset: const Offset(0, 4),
-                      //     blurRadius: 4,
-                      //     color: AppColors.black.withOpacity(0.3),
-                      //     spreadRadius: 0,
-                      //     blurStyle: BlurStyle.outer),
-                      // BoxShadow(
-                      //     offset: const Offset(0, -4),
-                      //     blurRadius: 4,
-                      //     color: AppColors.black.withOpacity(0.3),
-                      //     spreadRadius: 0,
-                      //     blurStyle: BlurStyle.outer),
-                    ],
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 24,
-                        backgroundImage: NetworkImage(
-                          "https://randomuser.me/api/portraits/men/1.jpg",
-                        ),
+          bottom: false,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(11),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(-4, 0),
+                              blurRadius: 4,
+                              color: AppColors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurStyle: BlurStyle.outer),
+                          BoxShadow(
+                              offset: const Offset(4, 0),
+                              blurRadius: 4,
+                              color: AppColors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurStyle: BlurStyle.outer),
+                          // BoxShadow(
+                          //     offset: const Offset(0, 4),
+                          //     blurRadius: 4,
+                          //     color: AppColors.black.withOpacity(0.3),
+                          //     spreadRadius: 0,
+                          //     blurStyle: BlurStyle.outer),
+                          // BoxShadow(
+                          //     offset: const Offset(0, -4),
+                          //     blurRadius: 4,
+                          //     color: AppColors.black.withOpacity(0.3),
+                          //     spreadRadius: 0,
+                          //     blurStyle: BlurStyle.outer),
+                        ],
+                        borderRadius: BorderRadius.circular(40),
                       ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
-                          Text("Jaydon Mango",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(fontSize: 20)),
-                          Text("Organizer",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(color: AppColors.blackGray)),
+                          const CircleAvatar(
+                            radius: 24,
+                            backgroundImage: NetworkImage(
+                              "https://randomuser.me/api/portraits/men/1.jpg",
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Jaydon Mango",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(fontSize: 20)),
+                              Text("Organizer",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(color: AppColors.blackGray)),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 13),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    // border: Border.all(color: Colors.grey.shade300),
-                    boxShadow: [
-                      // BoxShadow(
-                      //     offset: const Offset(-4, 0),
-                      //     blurRadius: 4,
-                      //     color: AppColors.black.withOpacity(0.3),
-                      //     spreadRadius: 0,
-                      //     blurStyle: BlurStyle.outer),
-                      // BoxShadow(
-                      //     offset: const Offset(4, 0),
-                      //     blurRadius: 4,
-                      //     color: AppColors.black.withOpacity(0.3),
-                      //     spreadRadius: 0,
-                      //     blurStyle: BlurStyle.outer),
-                      BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 4,
-                          color: AppColors.black.withOpacity(0.3),
-                          spreadRadius: 2,
-                          blurStyle: BlurStyle.outer),
-                      // BoxShadow(
-                      //     offset: const Offset(0, -4),
-                      //     blurRadius: 4,
-                      //     color: AppColors.black.withOpacity(0.3),
-                      //     spreadRadius: 0,
-                      //     blurStyle: BlurStyle.outer),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// Title & Price
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                    const SizedBox(height: 13),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        // border: Border.all(color: Colors.grey.shade300),
+                        boxShadow: [
+                          // BoxShadow(
+                          //     offset: const Offset(-4, 0),
+                          //     blurRadius: 4,
+                          //     color: AppColors.black.withOpacity(0.3),
+                          //     spreadRadius: 0,
+                          //     blurStyle: BlurStyle.outer),
+                          // BoxShadow(
+                          //     offset: const Offset(4, 0),
+                          //     blurRadius: 4,
+                          //     color: AppColors.black.withOpacity(0.3),
+                          //     spreadRadius: 0,
+                          //     blurStyle: BlurStyle.outer),
+                          BoxShadow(
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                              color: AppColors.black.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurStyle: BlurStyle.outer),
+                          // BoxShadow(
+                          //     offset: const Offset(0, -4),
+                          //     blurRadius: 4,
+                          //     color: AppColors.black.withOpacity(0.3),
+                          //     spreadRadius: 0,
+                          //     blurStyle: BlurStyle.outer),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Dance Party III",
-                              style: Theme.of(context).textTheme.titleLarge),
-                          Text("Paid",
+                          /// Title & Price
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Dance Party III",
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
+                              Text("Paid",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium
+                                      ?.copyWith(color: AppColors.secondary)),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Text("Batchata",
                               style: Theme.of(context)
                                   .textTheme
                                   .labelMedium
-                                  ?.copyWith(color: AppColors.secondary)),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Text("Batchata",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(color: AppColors.accent)),
+                                  ?.copyWith(color: AppColors.accent)),
 
-                      const SizedBox(height: 12),
+                          const SizedBox(height: 12),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          /// Location
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("location :",
-                                  style:
-                                      Theme.of(context).textTheme.labelLarge),
-                              Text("Rue 187, North\nAmerica (15 km)",
-                                  style:
-                                      Theme.of(context).textTheme.labelSmall),
-                            ],
-                          ),
-
-                          /// Time
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Time :",
-                                  style:
-                                      Theme.of(context).textTheme.labelLarge),
-                              Text("06-23 at 08:45\n06-23 at 08:45",
-                                  style:
-                                      Theme.of(context).textTheme.labelSmall),
-                            ],
-                          ),
-
-                          /// Rate
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Rate :",
-                                  style:
-                                      Theme.of(context).textTheme.labelLarge),
-                              const SizedBox(height: 4),
-                              Row(
+                              /// Location
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Icon(Icons.star,
-                                      color: AppColors.gold, size: 16),
-                                  const SizedBox(width: 4),
-                                  Text("0.0",
+                                  Text("location :",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodySmall),
+                                          .labelLarge),
+                                  Text("Rue 187, North\nAmerica (15 km)",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall),
                                 ],
-                              )
+                              ),
+
+                              /// Time
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Time :",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge),
+                                  Text("06-23 at 08:45\n06-23 at 08:45",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall),
+                                ],
+                              ),
+
+                              /// Rate
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Rate :",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.star,
+                                          color: AppColors.gold, size: 16),
+                                      const SizedBox(width: 4),
+                                      Text("0.0",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        selectedTab.value = Tabs.photos;
-                      },
-                      child: _TabItem(
-                          label: "Photos (0)",
-                          selected: selectedTab.value == Tabs.photos),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        selectedTab.value = Tabs.attendees;
-                      },
-                      child: _TabItem(
-                          label: "Attendees (15)",
-                          selected: selectedTab.value == Tabs.attendees),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            selectedTab.value = Tabs.photos;
+                          },
+                          child: _TabItem(
+                              label: "Photos (0)",
+                              selected: selectedTab.value == Tabs.photos),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            selectedTab.value = Tabs.attendees;
+                          },
+                          child: _TabItem(
+                              label: "Attendees (15)",
+                              selected: selectedTab.value == Tabs.attendees),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            selectedTab.value = Tabs.reviews;
+                          },
+                          child: _TabItem(
+                            label: "Reviews (10)",
+                            selected: selectedTab.value == Tabs.reviews,
+                          ),
+                        ),
+                      ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        selectedTab.value = Tabs.reviews;
-                      },
-                      child: _TabItem(
-                        label: "Reviews (10)",
-                        selected: selectedTab.value == Tabs.reviews,
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: selectedTab.value == Tabs.photos
-                          ? Column(
-                              children: [
-                                if (!haveImages)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 60),
-                                    child: Text(
-                                      "No photo Yet",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall
-                                          ?.copyWith(
-                                              color: AppColors.blackGray),
-                                    ),
-                                  ),
-                                if (haveImages) ImageGrid()
-                              ],
-                            )
-                          : selectedTab.value == Tabs.attendees
-                              ? Attendees(
-                                  haveAttendees: haveAttendees,
-                                  selectedSortBy: selectedSortBy,
-                                )
-                              : Column(
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: selectedTab.value == Tabs.photos
+                              ? Column(
                                   children: [
-                                    if (!haveReviews)
+                                    if (!haveImages)
                                       Padding(
                                         padding: const EdgeInsets.only(top: 60),
                                         child: Text(
-                                          "No review yet",
+                                          "No photo Yet",
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelSmall
@@ -340,35 +341,82 @@ class EventDetailsScreen extends StatelessWidget {
                                                   color: AppColors.blackGray),
                                         ),
                                       ),
-                                    if (haveReviews)
-                                      ListView.separated(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: 6,
-                                        itemBuilder: (context, index) {
-                                          return const ReviewCard(
-                                            userName: "Alexa Barners",
-                                            date: "21 Jun 2025",
-                                            rating: 4.5,
-                                            comment:
-                                                "Absolutely love this event !...",
-                                            avatarImageUrl: null,
-                                          );
-                                        },
-                                        separatorBuilder: (context, index) =>
-                                            const SizedBox(height: 10),
-                                      )
+                                    if (haveImages) ImageGrid()
                                   ],
-                                ),
+                                )
+                              : selectedTab.value == Tabs.attendees
+                                  ? Attendees(
+                                      haveAttendees: haveAttendees,
+                                      selectedSortBy: selectedSortBy,
+                                    )
+                                  : Column(
+                                      children: [
+                                        if (!haveReviews)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 60),
+                                            child: Text(
+                                              "No review yet",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall
+                                                  ?.copyWith(
+                                                      color:
+                                                          AppColors.blackGray),
+                                            ),
+                                          ),
+                                        if (haveReviews)
+                                          ListView.separated(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: 6,
+                                            itemBuilder: (context, index) {
+                                              return const ReviewCard(
+                                                userName: "Alexa Barners",
+                                                date: "21 Jun 2025",
+                                                rating: 4.5,
+                                                comment:
+                                                    "Absolutely love this event !...",
+                                                avatarImageUrl: null,
+                                              );
+                                            },
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    const SizedBox(height: 10),
+                                          )
+                                      ],
+                                    ),
+                        ),
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              if (showPreview.value)
+                Positioned(
+                  left: 16,
+                  right: 16,
+                  bottom: 24,
+                  child: Material(
+                    elevation: 8,
+                    borderRadius: BorderRadius.circular(16),
+                    child: EventPreviewCard(),
                   ),
                 ),
-              ],
-            ),
+            ],
           ),
         );
       }),
+    );
+  }
+
+  void share() {
+    SharePlus.instance.share(
+      ShareParams(
+        title: "Invite Partner",
+        text: 'Check out my website https://example.com',
+      ),
     );
   }
 }

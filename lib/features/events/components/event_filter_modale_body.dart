@@ -1,6 +1,7 @@
 import 'package:dance_up/core/components/custom_button.dart';
 import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/events/components/filter_button.dart';
+import 'package:dance_up/features/events/screens/events.dart';
 import 'package:flutter/material.dart';
 
 class EventFIlterModalBody extends StatelessWidget {
@@ -22,12 +23,12 @@ class EventFIlterModalBody extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: List.generate(3, (index) {
+          children: List.generate(EventType.values.length, (index) {
             return InkWell(
               onTap: () {},
-              child: const FilterButton(
+              child: FilterButton(
                 isSelected: false,
-                tag: 'All',
+                tag: EventType.values[index].description(),
               ),
             );
           }),
@@ -42,12 +43,12 @@ class EventFIlterModalBody extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: List.generate(6, (index) {
+          children: List.generate(DanceStyle.values.length, (index) {
             return InkWell(
               onTap: () {},
-              child: const FilterButton(
+              child: FilterButton(
                 isSelected: false,
-                tag: 'Salsa',
+                tag: DanceStyle.values[index].description(),
               ),
             );
           }),
@@ -73,12 +74,12 @@ class EventFIlterModalBody extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: List.generate(2, (index) {
+          children: List.generate(Price.values.length, (index) {
             return InkWell(
               onTap: () {},
-              child: const FilterButton(
+              child: FilterButton(
                 isSelected: false,
-                tag: 'Free',
+                tag: Price.values[index].description(),
               ),
             );
           }),
@@ -93,12 +94,12 @@ class EventFIlterModalBody extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: List.generate(2, (index) {
+          children: List.generate(Position.values.length, (index) {
             return InkWell(
               onTap: () {},
-              child: const FilterButton(
+              child: FilterButton(
                 isSelected: false,
-                tag: 'Indoor',
+                tag: Position.values[index].description(),
               ),
             );
           }),

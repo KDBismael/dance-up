@@ -15,7 +15,6 @@ enum EventSortBy {
   attended,
   popular;
 
-  @override
   String description() {
     switch (this) {
       case EventSortBy.recent:
@@ -32,6 +31,87 @@ enum EventSortBy {
   }
 }
 
+enum EventType {
+  all,
+  past,
+  upcoming;
+
+  String description() {
+    switch (this) {
+      case EventType.all:
+        return "All";
+      case EventType.past:
+        return "Past";
+      case EventType.upcoming:
+        return "Upcoming";
+      default:
+        throw "Error";
+    }
+  }
+}
+
+enum DanceStyle {
+  salsa,
+  batchata,
+  kizomba,
+  twoSteps,
+  country,
+  tango;
+
+  String description() {
+    switch (this) {
+      case DanceStyle.salsa:
+        return "salsa";
+      case DanceStyle.batchata:
+        return "Batchata";
+      case DanceStyle.kizomba:
+        return "Kizomba";
+      case DanceStyle.country:
+        return "Country";
+      case DanceStyle.twoSteps:
+        return "Two Steps";
+      case DanceStyle.tango:
+        return "Tango";
+      default:
+        throw "Error";
+    }
+  }
+}
+
+enum Price {
+  free,
+  paid;
+
+  String description() {
+    switch (this) {
+      case Price.free:
+        return "Free";
+      case Price.paid:
+        return "Paid";
+
+      default:
+        throw "Error";
+    }
+  }
+}
+
+enum Position {
+  indoor,
+  outdoor;
+
+  String description() {
+    switch (this) {
+      case Position.indoor:
+        return "Indoor";
+      case Position.outdoor:
+        return "Outdoor";
+
+      default:
+        throw "Error";
+    }
+  }
+}
+
 class Events extends StatelessWidget {
   var selectedSortBy = EventSortBy.recent.obs;
 
@@ -39,7 +119,7 @@ class Events extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 19),
+      padding: const EdgeInsets.symmetric(horizontal: 19),
       child: Obx(() {
         return Column(
           children: [
