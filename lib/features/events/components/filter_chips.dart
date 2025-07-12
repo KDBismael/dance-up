@@ -1,3 +1,4 @@
+import 'package:dance_up/data/models/event_model.dart';
 import 'package:dance_up/features/events/components/filter_button.dart';
 import 'package:flutter/material.dart';
 
@@ -9,13 +10,8 @@ class FilterChips extends StatefulWidget {
 }
 
 class _FilterChipsState extends State<FilterChips> {
-  final List<String> tags = [
-    "Chill",
-    "Energetic",
-    "Live music",
-    "Touristy",
-    "Cultural"
-  ];
+  final List<String> tags =
+      EventTag.values.map((e) => e.description()).toList();
   String selected = "Chill";
 
   @override

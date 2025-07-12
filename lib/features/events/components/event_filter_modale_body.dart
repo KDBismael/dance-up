@@ -1,7 +1,7 @@
 import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/data/models/event_model.dart';
 import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/events/components/filter_button.dart';
-import 'package:dance_up/features/events/screens/events.dart';
 import 'package:flutter/material.dart';
 
 class EventFIlterModalBody extends StatelessWidget {
@@ -94,12 +94,12 @@ class EventFIlterModalBody extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: List.generate(Position.values.length, (index) {
+          children: List.generate(DancePosition.values.length, (index) {
             return InkWell(
               onTap: () {},
               child: FilterButton(
                 isSelected: false,
-                tag: Position.values[index].description(),
+                tag: DancePosition.values[index].description(),
               ),
             );
           }),
