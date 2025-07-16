@@ -3,8 +3,11 @@ import 'package:dance_up/features/events/components/filter_button.dart';
 import 'package:flutter/material.dart';
 
 class FilterChips extends StatefulWidget {
-  const FilterChips({super.key});
+  const FilterChips(
+      {super.key, required this.selected, required this.onSelected});
 
+  final String selected;
+  final ValueChanged<String> onSelected;
   @override
   State<FilterChips> createState() => _FilterChipsState();
 }
@@ -12,7 +15,6 @@ class FilterChips extends StatefulWidget {
 class _FilterChipsState extends State<FilterChips> {
   final List<String> tags =
       EventTag.values.map((e) => e.description()).toList();
-  String selected = "Chill";
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +27,11 @@ class _FilterChipsState extends State<FilterChips> {
         padding: const EdgeInsets.all(0),
         itemBuilder: (context, index) {
           final tag = tags[index];
-          final isSelected = tag == selected;
+          final isSelected = tag == widget.selected;
 
           return GestureDetector(
             onTap: () {
-              setState(() {
-                selected = tag;
-              });
+              widget.onSelected(tag);
             },
             child: FilterButton(isSelected: isSelected, tag: tag),
           );

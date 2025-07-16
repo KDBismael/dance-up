@@ -9,14 +9,27 @@ class EventPresenter extends GetxController {
   EventPresenter(this.repository);
 
   var events = <EventModel>[].obs;
+  var filteredEvents = <EventModel>[].obs;
   var isLoading = false.obs;
   var errorMessage = ''.obs;
-  var selectedTag = ''.obs;
   var isSortedBy = EventSortBy.recent.obs;
+  var selectedTag = EventTag.chill.obs;
 
   @override
   void onInit() {
     getEvents();
+    // events.listen(
+    //   (eventList) {
+    //     filteredEvents.value = eventList.where((event) {
+    //       return event.tags.contains(selectedTag.value);
+    //     }).toList();
+    //   },
+    // );
+    filterByTag(selectedTag.value);
+    selectedTag.listen((tag) {
+      filterByTag(tag);
+    });
+
     super.onInit();
   }
 
@@ -108,5 +121,12 @@ class EventPresenter extends GetxController {
         events.removeWhere((e) => e.id == eventId);
       },
     );
+  }
+
+  void filterByTag(EventTag tag) {
+    print("Selected tag changed to: ${tag.description()}");
+    filteredEvents.value = events.where((event) {
+      return event.tags.contains(tag);
+    }).toList();
   }
 }

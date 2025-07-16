@@ -1,6 +1,7 @@
 import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/core/utils/helper.dart';
+import 'package:dance_up/data/models/event_model.dart';
 import 'package:dance_up/features/events/components/event_card.dart';
 import 'package:dance_up/features/events/components/event_filter_modale_body.dart';
 import 'package:dance_up/features/events/components/filter_chips.dart';
@@ -47,7 +48,12 @@ class Events extends StatelessWidget {
           children: [
             EventSearchBar(),
             const SizedBox(height: 12),
-            FilterChips(),
+            FilterChips(
+                selected: presenter.selectedTag.value.description(),
+                onSelected: (tag) {
+                  presenter.selectedTag.value =
+                      EventTag.values.firstWhere((e) => e.description() == tag);
+                }),
             const SizedBox(height: 23),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,11 +105,11 @@ class Events extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount:
-                    presenter.events.length, // or your actual event count
+                itemCount: presenter
+                    .filteredEvents.length, // or your actual event count
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
                 itemBuilder: (context, index) {
-                  final event = presenter.events[index];
+                  final event = presenter.filteredEvents[index];
                   return GestureDetector(
                     onTap: () {
                       Get.toNamed(Routes.eventDetails,
