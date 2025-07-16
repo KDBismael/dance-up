@@ -14,25 +14,32 @@ class EventPresenter extends GetxController {
   var selectedTag = ''.obs;
   var isSortedBy = EventSortBy.recent.obs;
 
+  @override
+  void onInit() {
+    getEvents();
+    super.onInit();
+  }
+
   getEvents({
     String? tag,
     String? location,
     DateTime? date,
   }) async {
     isLoading.value = true;
-    final res =
-        await repository.getEvents(tag: tag, location: location, date: date);
-    res.fold(
-      (failure) {
-        isLoading.value = false;
-        errorMessage.value = failure.message;
-      },
-      (eventList) {
-        events.value = eventList;
-        isLoading.value = false;
-        errorMessage.value = '';
-      },
-    );
+    events.value = sampleEvents;
+    // final res =
+    //     await repository.getEvents(tag: tag, location: location, date: date);
+    // res.fold(
+    //   (failure) {
+    //     isLoading.value = false;
+    //     errorMessage.value = failure.message;
+    //   },
+    //   (eventList) {
+    //     events.value = eventList;
+    //     isLoading.value = false;
+    //     errorMessage.value = '';
+    //   },
+    // );
   }
 
   getEventById(String eventId) async {

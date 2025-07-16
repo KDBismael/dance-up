@@ -1,10 +1,12 @@
 import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/core/utils/helper.dart';
 import 'package:dance_up/features/events/components/event_card.dart';
 import 'package:dance_up/features/events/components/event_filter_modale_body.dart';
 import 'package:dance_up/features/events/components/filter_chips.dart';
 import 'package:dance_up/features/events/components/rounded_button_icon.dart';
 import 'package:dance_up/features/events/components/sort_by_widget.dart';
+import 'package:dance_up/features/events/event_presenter.dart';
 import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,6 +34,7 @@ enum EventSortBy {
 }
 
 class Events extends StatelessWidget {
+  final EventPresenter presenter = Get.find<EventPresenter>();
   var selectedSortBy = EventSortBy.recent.obs;
 
   @override
@@ -96,27 +99,47 @@ class Events extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount: 5, // or your actual event count
+                itemCount:
+                    presenter.events.length, // or your actual event count
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
                 itemBuilder: (context, index) {
+                  final event = presenter.events[index];
                   return GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.eventDetails);
+                      Get.toNamed(Routes.eventDetails,
+                          arguments: {'event': event});
                     },
                     child: EventCard(
-                      imageUrl:
-                          'https://dance-teacher.com/wp-content/uploads/2025/05/GettyImages-120022690.jpg',
-                      title: 'Dance Party III',
-                      timeAgo: '2 days ago',
-                      location: 'East Java',
-                      isPaid: true,
+                      imageUrl: event.imageUrl!,
+                      title: event.name,
+                      timeAgo:
+                          getEventDateLabel(event.startDate, event.endDate),
+                      location: event.locationName,
+                      isPaid: event.price.name == "paid",
                       onJoinPressed: () => print('Join $index'),
-                      participantCount: 22,
-                      participantAvatars: const [
-                        'https://i.pravatar.cc/300',
-                        'https://i.pravatar.cc/300'
-                      ],
+                      participantCount: event.attendeesIds!.length > 2
+                          ? event.attendeesIds!.length - 2
+                          : 0,
+                      participantAvatars: event.attendeesIds!
+                          .take(2)
+                          .toList()
+                          .map((a) => 'https://i.pravatar.cc/300')
+                          .toList(),
                     ),
+                    // child: EventCard(
+                    //   imageUrl:
+                    //       'https://dance-teacher.com/wp-content/uploads/2025/05/GettyImages-120022690.jpg',
+                    //   title: 'Dance Party III',
+                    //   timeAgo: '2 days ago',
+                    //   location: 'East Java',
+                    //   isPaid: true,
+                    //   onJoinPressed: () => print('Join $index'),
+                    //   participantCount: 22,
+                    //   participantAvatars: const [
+                    //     'https://i.pravatar.cc/300',
+                    //     'https://i.pravatar.cc/300'
+                    //   ],
+                    // ),
                   );
                 },
               ),

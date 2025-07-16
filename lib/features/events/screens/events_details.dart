@@ -1,8 +1,11 @@
 import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/core/utils/helper.dart';
+import 'package:dance_up/data/models/event_model.dart';
 import 'package:dance_up/features/events/components/event_preview_card.dart';
 import 'package:dance_up/features/events/components/review_modal_body.dart';
 import 'package:dance_up/features/events/components/sort_by_widget.dart';
+import 'package:dance_up/features/events/event_presenter.dart';
 import 'package:dance_up/features/profile/components/follower_users_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,9 +42,11 @@ enum AttendeesSortBy {
 
 class EventDetailsScreen extends StatelessWidget {
   EventDetailsScreen({super.key});
+  final EventPresenter presenter = Get.find<EventPresenter>();
   var selectedTab = Tabs.photos.obs;
   var selectedSortBy = AttendeesSortBy.all.obs;
   var showPreview = false.obs;
+  var event = Get.arguments['event'] as EventModel;
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +107,8 @@ class EventDetailsScreen extends StatelessWidget {
       ),
       body: Obx(() {
         final haveImages = true;
-        final haveAttendees = true;
-        final haveReviews = true;
+        final haveAttendees = event.attendeesIds?.isNotEmpty ?? false;
+        final haveReviews = event.reviewsIds?.isNotEmpty ?? false;
 
         return SafeArea(
           bottom: false,
@@ -212,18 +217,21 @@ class EventDetailsScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Dance Party III",
+                              Text(event.name,
                                   style:
                                       Theme.of(context).textTheme.titleLarge),
-                              Text("Paid",
+                              Text(event.price.description(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelMedium
-                                      ?.copyWith(color: AppColors.secondary)),
+                                      ?.copyWith(
+                                          color: event.price.name == 'paid'
+                                              ? AppColors.secondary
+                                              : AppColors.green)),
                             ],
                           ),
                           const SizedBox(height: 4),
-                          Text("Batchata",
+                          Text(event.danceStyle.description(),
                               style: Theme.of(context)
                                   .textTheme
                                   .labelMedium
@@ -234,7 +242,6 @@ class EventDetailsScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              /// Location
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -242,14 +249,12 @@ class EventDetailsScreen extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge),
-                                  Text("Rue 187, North\nAmerica (15 km)",
+                                  Text("${event.locationName}\nAmerica (15 km)",
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelSmall),
                                 ],
                               ),
-
-                              /// Time
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -257,35 +262,35 @@ class EventDetailsScreen extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge),
-                                  Text("06-23 at 08:45\n06-23 at 08:45",
+                                  Text(
+                                      "${eventDetailsFormatDateTime(event.startDate)}\n${eventDetailsFormatDateTime(event.endDate)}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelSmall),
                                 ],
                               ),
-
-                              /// Rate
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Rate :",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.star,
-                                          color: AppColors.gold, size: 16),
-                                      const SizedBox(width: 4),
-                                      Text("0.0",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall),
-                                    ],
-                                  )
-                                ],
-                              ),
+                              if (haveReviews)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Rate :",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.star,
+                                            color: AppColors.gold, size: 16),
+                                        const SizedBox(width: 4),
+                                        Text("0.0",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall),
+                                      ],
+                                    )
+                                  ],
+                                ),
                             ],
                           ),
                         ],
@@ -308,7 +313,8 @@ class EventDetailsScreen extends StatelessWidget {
                             selectedTab.value = Tabs.attendees;
                           },
                           child: _TabItem(
-                              label: "Attendees (15)",
+                              label:
+                                  "Attendees (${event.attendeesIds?.length ?? 0})",
                               selected: selectedTab.value == Tabs.attendees),
                         ),
                         GestureDetector(
@@ -316,7 +322,7 @@ class EventDetailsScreen extends StatelessWidget {
                             selectedTab.value = Tabs.reviews;
                           },
                           child: _TabItem(
-                            label: "Reviews (10)",
+                            label: "Reviews (${event.reviewsIds?.length ?? 0})",
                             selected: selectedTab.value == Tabs.reviews,
                           ),
                         ),
@@ -346,46 +352,13 @@ class EventDetailsScreen extends StatelessWidget {
                                 )
                               : selectedTab.value == Tabs.attendees
                                   ? Attendees(
+                                      attendeesId: event.attendeesIds ?? [],
                                       haveAttendees: haveAttendees,
                                       selectedSortBy: selectedSortBy,
                                     )
-                                  : Column(
-                                      children: [
-                                        if (!haveReviews)
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 60),
-                                            child: Text(
-                                              "No review yet",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall
-                                                  ?.copyWith(
-                                                      color:
-                                                          AppColors.blackGray),
-                                            ),
-                                          ),
-                                        if (haveReviews)
-                                          ListView.separated(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: 6,
-                                            itemBuilder: (context, index) {
-                                              return const ReviewCard(
-                                                userName: "Alexa Barners",
-                                                date: "21 Jun 2025",
-                                                rating: 4.5,
-                                                comment:
-                                                    "Absolutely love this event !...",
-                                                avatarImageUrl: null,
-                                              );
-                                            },
-                                            separatorBuilder:
-                                                (context, index) =>
-                                                    const SizedBox(height: 10),
-                                          )
-                                      ],
+                                  : Reviews(
+                                      haveReviews: haveReviews,
+                                      reviewsId: event.reviewsIds ?? [],
                                     ),
                         ),
                       ),
@@ -421,15 +394,63 @@ class EventDetailsScreen extends StatelessWidget {
   }
 }
 
+class Reviews extends StatelessWidget {
+  const Reviews({
+    super.key,
+    required this.haveReviews,
+    required this.reviewsId,
+  });
+
+  final bool haveReviews;
+  final List<String> reviewsId;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (!haveReviews)
+          Padding(
+            padding: const EdgeInsets.only(top: 60),
+            child: Text(
+              "No review yet",
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(color: AppColors.blackGray),
+            ),
+          ),
+        if (haveReviews)
+          ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: reviewsId.length,
+            itemBuilder: (context, index) {
+              return const ReviewCard(
+                userName: "Alexa Barners",
+                date: "21 Jun 2025",
+                rating: 4.5,
+                comment: "Absolutely love this event !...",
+                avatarImageUrl: null,
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
+          )
+      ],
+    );
+  }
+}
+
 class Attendees extends StatelessWidget {
   const Attendees({
     super.key,
     required this.haveAttendees,
     required this.selectedSortBy,
+    required this.attendeesId,
   });
 
   final bool haveAttendees;
   final Rx<AttendeesSortBy> selectedSortBy;
+  final List<String> attendeesId;
 
   @override
   Widget build(BuildContext context) {
@@ -500,7 +521,7 @@ class Attendees extends StatelessWidget {
               ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 6,
+                itemCount: attendeesId.length,
                 itemBuilder: (context, index) {
                   return FollowerUsersCard(
                     fullName: 'Alice Manuer',

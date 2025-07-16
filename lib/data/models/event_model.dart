@@ -30,7 +30,7 @@ enum DanceStyle {
   String description() {
     switch (this) {
       case DanceStyle.salsa:
-        return "salsa";
+        return "Salsa";
       case DanceStyle.batchata:
         return "Batchata";
       case DanceStyle.kizomba:

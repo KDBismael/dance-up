@@ -53,7 +53,6 @@ class EventCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Title + Date
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -76,8 +75,6 @@ class EventCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 8),
-
-                // Location + Paid
                 Row(
                   children: [
                     const Icon(Icons.location_on, size: 16, color: Colors.grey),
@@ -96,18 +93,17 @@ class EventCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 12),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    OverlappingAvatars(
-                      imageUrls: participantAvatars,
-                      extraCount: participantCount,
-                    ),
-                    const Spacer(flex: 1),
+                    if (participantAvatars.isNotEmpty)
+                      OverlappingAvatars(
+                        imageUrls: participantAvatars,
+                        extraCount: participantCount,
+                      ),
+                    if (participantAvatars.isNotEmpty) const Spacer(flex: 1),
                     Flexible(
                       flex: 2,
                       child: CustomButton(
