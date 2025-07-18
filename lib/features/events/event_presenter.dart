@@ -23,38 +23,35 @@ class EventPresenter extends GetxController {
   @override
   void onInit() {
     getEvents();
-    applyAllFilters();
-    // events.listen(
-    //   (eventList) {
-    //     filteredEvents.value = eventList.where((event) {
-    //       return event.tags.contains(selectedTag.value);
-    //     }).toList();
-    //   },
-    // );
-    // filterByTag(selectedTag.value);
-    // filterByEventType(selectedEventType.value);
-    // filterByDanceStyle(selectedDanceStyle);
-    // filterByDanceLevel(selectedDanceLevel);
-    // filterByPrice(selectedPrice);
-    // filterByDancePosition(selectedDancePosition);
+    final eventFilter = EventFilter(
+      fiilteredEvents: filteredEvents,
+      events: events,
+      tag: selectedTag,
+      eventType: selectedEventType,
+      danceStyles: selectedDanceStyle,
+      danceLevels: selectedDanceLevel,
+      prices: selectedPrice,
+      dancePositions: selectedDancePosition,
+    );
+    eventFilter.applyAllFilters();
 
     selectedTag.listen((tag) {
-      filterByTag(tag);
+      eventFilter.applyAllFilters();
     });
     selectedEventType.listen((type) {
-      filterByEventType(type);
+      eventFilter.applyAllFilters();
     });
     selectedDanceStyle.listen((styles) {
-      filterByDanceStyle(styles);
+      eventFilter.applyAllFilters();
     });
     selectedDanceLevel.listen((level) {
-      filterByDanceLevel(level);
+      eventFilter.applyAllFilters();
     });
     selectedPrice.listen((price) {
-      filterByPrice(price);
+      eventFilter.applyAllFilters();
     });
     selectedDancePosition.listen((position) {
-      filterByDancePosition(position);
+      eventFilter.applyAllFilters();
     });
 
     super.onInit();
@@ -151,58 +148,6 @@ class EventPresenter extends GetxController {
     );
   }
 
-  void filterByTag(EventTag tag) {
-    print("Selected tag changed to: ${tag.description()}");
-    filteredEvents.value = events.where((event) {
-      return event.tags.contains(tag);
-    }).toList();
-  }
-
-  void filterByEventType(EventType type) {
-    print("Selected event type changed to: ${type.description()}");
-    filteredEvents.value = type == EventType.all
-        ? filteredEvents
-        : type == EventType.past
-            ? filteredEvents.where((event) {
-                return event.startDate.isBefore(DateTime.now());
-              }).toList()
-            : filteredEvents.where((event) {
-                return event.startDate.isAfter(DateTime.now());
-              }).toList();
-  }
-
-  void filterByDanceStyle(List<DanceStyle> styles) {
-    print(
-        "Selected dance styles changed to: ${styles.map((e) => e.description()).join(', ')}");
-    filteredEvents.value = events.where((event) {
-      return styles.contains(event.danceStyle);
-    }).toList();
-  }
-
-  void filterByDanceLevel(List<DanceLevel> level) {
-    print(
-        "Selected dance levels changed to: ${level.map((e) => e.description()).join(', ')}");
-    filteredEvents.value = events.where((event) {
-      return level.contains(event.danceLevel);
-    }).toList();
-  }
-
-  void filterByPrice(List<Price> price) {
-    print(
-        "Selected prices changed to: ${price.map((e) => e.description()).join(', ')}");
-    filteredEvents.value = events.where((event) {
-      return price.contains(event.price);
-    }).toList();
-  }
-
-  void filterByDancePosition(List<DancePosition> position) {
-    print(
-        "Selected dance positions changed to: ${position.map((e) => e.description()).join(', ')}");
-    filteredEvents.value = events.where((event) {
-      return position.contains(event.dancePosition);
-    }).toList();
-  }
-
   void applyAllFilters() {
     print("Applying all filters...");
 
@@ -237,5 +182,95 @@ class EventPresenter extends GetxController {
     }).toList();
 
     filteredEvents.value = result;
+  }
+}
+
+class EventFilter {
+  final Rx<EventTag>? tag;
+  final Rx<EventType>? eventType;
+  final RxList<DanceStyle>? danceStyles;
+  final RxList<DanceLevel>? danceLevels;
+  final RxList<Price>? prices;
+  final RxList<DancePosition>? dancePositions;
+  final RxList<EventModel> events;
+  final RxList<EventModel> fiilteredEvents;
+
+  EventFilter({
+    required this.fiilteredEvents,
+    required this.events,
+    this.tag,
+    this.eventType,
+    this.danceStyles,
+    this.danceLevels,
+    this.prices,
+    this.dancePositions,
+  });
+
+  void applyAllFilters() {
+    print("Applying all filters...");
+
+    var result = events.value;
+
+    result = _filterByTag(result);
+    result = _filterByEventType(result);
+    result = _filterByDanceStyle(result);
+    result = _filterByDanceLevel(result);
+    result = _filterByPrice(result);
+    result = _filterByDancePosition(result);
+
+    print("Filtered events count: ${result.length}");
+    fiilteredEvents.value = result;
+  }
+
+  List<EventModel> _filterByTag(List<EventModel> events) {
+    print("Selected tag changed to: ${tag?.value.description()}");
+    return events.where((event) {
+      return event.tags.contains(tag?.value);
+    }).toList();
+  }
+
+  List<EventModel> _filterByEventType(List<EventModel> events) {
+    print("Selected event type changed to: ${eventType?.value.description()}");
+    return eventType?.value == EventType.all
+        ? events
+        : eventType?.value == EventType.past
+            ? events.where((event) {
+                return event.startDate.isBefore(DateTime.now());
+              }).toList()
+            : events.where((event) {
+                return event.startDate.isAfter(DateTime.now());
+              }).toList();
+  }
+
+  List<EventModel> _filterByDanceStyle(List<EventModel> events) {
+    print(
+        "Selected dance styles changed to: ${danceStyles?.map((e) => e.description()).join(', ')}");
+    return events.where((event) {
+      return danceStyles?.contains(event.danceStyle) ?? false;
+    }).toList();
+  }
+
+  List<EventModel> _filterByDanceLevel(List<EventModel> events) {
+    print(
+        "Selected dance levels changed to: ${danceLevels?.map((e) => e.description()).join(', ')}");
+    return events.where((event) {
+      return danceLevels?.contains(event.danceLevel) ?? false;
+    }).toList();
+  }
+
+  List<EventModel> _filterByPrice(List<EventModel> events) {
+    print(
+        "Selected prices changed to: ${prices?.map((e) => e.description()).join(', ')}");
+    return events.where((event) {
+      return prices?.contains(event.price) ?? false;
+    }).toList();
+  }
+
+  List<EventModel> _filterByDancePosition(List<EventModel> events) {
+    print(
+        "Selected dance positions changed to: ${dancePositions?.map((e) => e.description()).join(', ')}");
+    return events.where((event) {
+      return dancePositions?.contains(event.dancePosition) ?? false;
+    }).toList();
   }
 }
