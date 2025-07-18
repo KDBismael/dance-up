@@ -106,7 +106,7 @@ class EventDetailsScreen extends StatelessWidget {
         ),
       ),
       body: Obx(() {
-        final haveImages = true;
+        final haveImages = event.photos?.isNotEmpty ?? false;
         final haveAttendees = event.attendeesIds?.isNotEmpty ?? false;
         final haveReviews = event.reviewsIds?.isNotEmpty ?? false;
 
@@ -283,7 +283,7 @@ class EventDetailsScreen extends StatelessWidget {
                                         const Icon(Icons.star,
                                             color: AppColors.gold, size: 16),
                                         const SizedBox(width: 4),
-                                        Text("0.0",
+                                        Text("${event.rate ?? '0.0'}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall),
@@ -305,7 +305,7 @@ class EventDetailsScreen extends StatelessWidget {
                             selectedTab.value = Tabs.photos;
                           },
                           child: _TabItem(
-                              label: "Photos (0)",
+                              label: "Photos (${event.photos?.length ?? 0})",
                               selected: selectedTab.value == Tabs.photos),
                         ),
                         GestureDetector(
@@ -347,7 +347,8 @@ class EventDetailsScreen extends StatelessWidget {
                                                   color: AppColors.blackGray),
                                         ),
                                       ),
-                                    if (haveImages) ImageGrid()
+                                    if (haveImages)
+                                      ImageGrid(imageUrls: event.photos ?? [])
                                   ],
                                 )
                               : selectedTab.value == Tabs.attendees
@@ -576,17 +577,10 @@ class _TabItem extends StatelessWidget {
 }
 
 class ImageGrid extends StatelessWidget {
-  const ImageGrid({super.key});
-
+  const ImageGrid({super.key, required this.imageUrls});
+  final List<String> imageUrls;
   @override
   Widget build(BuildContext context) {
-    final List<String> imageUrls = [
-      'https://images.unsplash.com/photo-1592194996308-7b43878e84a6',
-      'https://st2.depositphotos.com/4218696/11338/i/450/depositphotos_113383240-stock-photo-asian-dance-group-in-flower.jpg',
-      'https://images.unsplash.com/photo-1602067340370-1a26c281caae',
-      'https://images.unsplash.com/photo-1592194996308-7b43878e84a6',
-    ];
-
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

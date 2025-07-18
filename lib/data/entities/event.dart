@@ -18,6 +18,8 @@ class Event {
   final DancePosition dancePosition;
   final List<String>? attendeesIds;
   final List<String>? reviewsIds;
+  final List<String>? photos;
+  final double? rate;
 
   Event({
     required this.id,
@@ -25,6 +27,8 @@ class Event {
     required this.description,
     required this.locationName,
     this.locationAddress,
+    this.photos,
+    this.rate,
     required this.startDate,
     required this.endDate,
     this.imageUrl,
