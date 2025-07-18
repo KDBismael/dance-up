@@ -1,9 +1,9 @@
 import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/core/components/custom_dropdown.dart';
 import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/constants/global_constant.dart';
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
-import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/auth/components/custom_text_field.dart';
 import 'package:dance_up/features/auth/sign_up_onboarding/sign_up_onboarding.dart';
 import 'package:dance_up/features/profile/components/base_profile_sub_page.dart';

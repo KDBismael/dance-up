@@ -1,6 +1,6 @@
 import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/core/components/custom_multi_select_dropdown.dart';
 import 'package:dance_up/data/models/event_model.dart';
-import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/events/components/filter_button.dart';
 import 'package:dance_up/features/events/event_presenter.dart';
 import 'package:flutter/material.dart';
@@ -76,15 +76,22 @@ class EventFIlterModalBody extends StatelessWidget {
             style:
                 Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20),
           ),
-          CustomDropdown(
+          CustomMultiSelectDropdown(
             hintText: "skill level",
             dropdownItems:
                 DanceLevel.values.map((e) => e.description()).toList(),
-            selectedValue: presenter.selectedDanceLevel[0].description(),
-            onChanged: (p0) {
-              presenter.selectedDanceLevel.value = DanceLevel.values
-                  .where((e) => e.description() == p0)
-                  .toList();
+            selectedItems: presenter.selectedDanceLevel
+                .map((e) => e.description())
+                .toList(),
+            onChanged: (isSelected, item) {
+              print("Selected skill levels: $item");
+              if (isSelected) {
+                presenter.selectedDanceLevel.remove(DanceLevel.values
+                    .firstWhere((e) => e.description() == item));
+              } else {
+                presenter.selectedDanceLevel.add(DanceLevel.values
+                    .firstWhere((e) => e.description() == item));
+              }
             },
           ),
           const SizedBox(height: 24),
@@ -145,7 +152,12 @@ class EventFIlterModalBody extends StatelessWidget {
             }),
           ),
           const SizedBox(height: 24),
-          CustomButton(text: "Apply filter", onPressed: () {})
+          CustomButton(
+            text: "Apply filter",
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
         ],
       );
     });

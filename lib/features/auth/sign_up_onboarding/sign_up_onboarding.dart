@@ -1,9 +1,9 @@
 import 'package:dance_up/core/components/base_widget_with_gradient.dart';
 import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/core/components/custom_dropdown.dart';
 import 'package:dance_up/core/constants/global_constant.dart';
 import 'package:dance_up/core/theme/colors.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
-import 'package:dance_up/features/auth/components/custom_dropdown.dart';
 import 'package:dance_up/features/auth/components/selectable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
