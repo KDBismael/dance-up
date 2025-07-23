@@ -203,6 +203,22 @@ class EventPresenter extends GetxController {
     );
   }
 
+  void sortBy(EventSortBy sortBy) {
+    isSortedBy.value = sortBy;
+    if (sortBy == EventSortBy.recent) {
+      filteredEvents.sort((a, b) => b.startDate.compareTo(a.startDate));
+    } else if (sortBy == EventSortBy.popular) {
+      filteredEvents.sort(
+          (a, b) => b.attendeesIds!.length.compareTo(a.attendeesIds!.length));
+    } else if (sortBy == EventSortBy.old) {
+      filteredEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
+    }
+
+    // else if (sortBy == EventSortBy.attended) {
+    //   filteredEvents.sort((a, b) => );
+    // }
+  }
+
   void applyAllFilters() {
     print("Applying all filters...");
 

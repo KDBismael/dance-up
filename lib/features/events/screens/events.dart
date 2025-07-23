@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 enum EventSortBy {
   recent,
   old,
-  attended,
+  // attended,
   popular;
 
   String description() {
@@ -24,8 +24,8 @@ enum EventSortBy {
         return "Recent";
       case EventSortBy.old:
         return "Old";
-      case EventSortBy.attended:
-        return "Attended";
+      // case EventSortBy.attended:
+      //   return "Attended";
       case EventSortBy.popular:
         return "Populare";
       default:
@@ -83,6 +83,7 @@ class Events extends StatelessWidget {
                           selectedItem: selectedSortBy.value,
                           onTap: (p0) {
                             selectedSortBy.value = p0;
+                            presenter.sortBy(p0);
                           },
                           labelBuilder: (p) {
                             return p.description();
