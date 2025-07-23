@@ -16,4 +16,8 @@ abstract class EventRepository {
   Future<Either<ServerFailure, void>> updateEvent(EventModel event);
 
   Future<Either<ServerFailure, void>> deleteEvent(String eventId);
+  Future<Either<ServerFailure, List<EventReviewModel>>> getEventReviews(
+      String eventId);
+  Future<Either<ServerFailure, EventReviewModel>> addEventReview(
+      EventReviewModel review);
 }

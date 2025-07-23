@@ -43,3 +43,19 @@ class Event {
     this.reviewsIds,
   });
 }
+
+class EventReview {
+  final String id;
+  final String eventId;
+  final String userId;
+  final String comment;
+  final double rating;
+
+  EventReview({
+    required this.id,
+    required this.eventId,
+    required this.userId,
+    required this.comment,
+    required this.rating,
+  });
+}

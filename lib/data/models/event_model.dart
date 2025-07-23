@@ -173,6 +173,50 @@ class EventModel extends Event {
     };
   }
 
+  EventModel copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? locationName,
+    String? locationAddress,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? imageUrl,
+    String? organizerId,
+    List<EventTag>? tags,
+    DanceStyle? danceStyle,
+    DanceLevel? danceLevel,
+    Price? price,
+    String? priceAmount,
+    DancePosition? dancePosition,
+    List<String>? attendeesIds,
+    List<String>? reviewsIds,
+    List<String>? photos,
+    double? rate,
+  }) {
+    return EventModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      locationName: locationName ?? this.locationName,
+      locationAddress: locationAddress ?? this.locationAddress,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      imageUrl: imageUrl ?? this.imageUrl,
+      organizerId: organizerId ?? this.organizerId,
+      tags: tags ?? this.tags,
+      danceStyle: danceStyle ?? this.danceStyle,
+      danceLevel: danceLevel ?? this.danceLevel,
+      price: price ?? this.price,
+      priceAmount: priceAmount ?? this.priceAmount,
+      dancePosition: dancePosition ?? this.dancePosition,
+      attendeesIds: attendeesIds ?? this.attendeesIds,
+      reviewsIds: reviewsIds ?? this.reviewsIds,
+      photos: photos ?? this.photos,
+      rate: rate ?? this.rate,
+    );
+  }
+
   factory EventModel.fromJson(Map<String, dynamic> json) {
     return EventModel(
       id: json['id'],
@@ -202,6 +246,51 @@ class EventModel extends Event {
           (json['reviewsIds'] as List?)?.map((e) => e.toString()).toList(),
       photos: (json['photos'] as List?)?.map((e) => e.toString()).toList(),
       rate: double.tryParse(json['rate'].toString()),
+    );
+  }
+}
+
+class EventReviewModel extends EventReview {
+  EventReviewModel({
+    required super.id,
+    required super.eventId,
+    required super.userId,
+    required super.comment,
+    required super.rating,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'eventId': eventId,
+      'userId': userId,
+      'comment': comment,
+      'rating': rating,
+    };
+  }
+
+  factory EventReviewModel.fromJson(Map<String, dynamic> json) {
+    return EventReviewModel(
+      id: json['id'],
+      eventId: json['eventId'],
+      userId: json['userId'],
+      comment: json['comment'],
+      rating: double.parse(json['rating'].toString()),
+    );
+  }
+  EventReviewModel copyWith({
+    String? id,
+    String? eventId,
+    String? userId,
+    String? comment,
+    double? rating,
+  }) {
+    return EventReviewModel(
+      id: id ?? this.id,
+      eventId: eventId ?? this.eventId,
+      userId: userId ?? this.userId,
+      comment: comment ?? this.comment,
+      rating: rating ?? this.rating,
     );
   }
 }

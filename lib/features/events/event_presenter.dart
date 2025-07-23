@@ -1,12 +1,15 @@
 import 'package:dance_up/data/models/event_model.dart';
+import 'package:dance_up/data/models/user_model.dart';
 import 'package:dance_up/data/repositories/event.dart';
+import 'package:dance_up/data/repositories/profile.dart';
 import 'package:dance_up/features/events/screens/events.dart';
 import 'package:dance_up/features/events/screens/events_details.dart';
 import 'package:get/get.dart';
 
 class EventPresenter extends GetxController {
   final EventRepository repository;
-  EventPresenter(this.repository);
+  final ProfileRepository profileRepository;
+  EventPresenter(this.repository, this.profileRepository);
 
   var events = <EventModel>[].obs;
   var filteredEvents = <EventModel>[].obs;
@@ -19,6 +22,8 @@ class EventPresenter extends GetxController {
   var selectedDanceLevel = <DanceLevel>[...DanceLevel.values].obs;
   var selectedPrice = <Price>[...Price.values].obs;
   var selectedDancePosition = <DancePosition>[...DancePosition.values].obs;
+  var eventReviews = RxMap<String, List<EventReviewModel>>();
+  var eventAttendees = RxMap<String, List<UserModel>>();
 
   @override
   void onInit() {
@@ -144,6 +149,56 @@ class EventPresenter extends GetxController {
         isLoading.value = false;
         errorMessage.value = '';
         events.removeWhere((e) => e.id == eventId);
+      },
+    );
+  }
+
+  void getEventReviews(String eventId) async {
+    isLoading.value = true;
+    final res = await repository.getEventReviews(eventId);
+    res.fold(
+      (failure) {
+        isLoading.value = false;
+        errorMessage.value = failure.message;
+      },
+      (reviews) {
+        isLoading.value = false;
+        errorMessage.value = '';
+        eventReviews[eventId] = reviews;
+      },
+    );
+  }
+
+  void addEventReview(EventReviewModel review) async {
+    isLoading.value = true;
+    final res = await repository.addEventReview(review);
+    res.fold(
+      (failure) {
+        isLoading.value = false;
+        errorMessage.value = failure.message;
+      },
+      (addedReview) {
+        isLoading.value = false;
+        errorMessage.value = '';
+        eventReviews[review.eventId] = eventReviews[review.eventId] ?? [];
+        eventReviews[review.eventId]!.add(addedReview);
+      },
+    );
+  }
+
+  void getEventAttendees(String userId) async {
+    isLoading.value = true;
+    final res = await profileRepository.getUserProfileById(userId);
+    res.fold(
+      (failure) {
+        isLoading.value = false;
+        errorMessage.value = failure.message;
+      },
+      (attendees) {
+        isLoading.value = false;
+        errorMessage.value = '';
+        eventAttendees[userId] = eventAttendees[userId] ?? [];
+        eventAttendees[userId]!.add(attendees);
       },
     );
   }

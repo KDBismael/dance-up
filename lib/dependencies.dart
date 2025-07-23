@@ -17,7 +17,8 @@ class InitialBinding extends Bindings {
     Get.lazyPut<EventRepository>(() => Event(), fenix: true);
     Get.lazyPut<AuthPresenter>(() => AuthPresenter(Get.find(), Get.find()),
         fenix: true);
-    Get.lazyPut<EventPresenter>(() => EventPresenter(Get.find()), fenix: true);
+    Get.lazyPut<EventPresenter>(() => EventPresenter(Get.find(), Get.find()),
+        fenix: true);
     Get.lazyPut<NavigationController>(() => NavigationController(),
         fenix: true);
   }
