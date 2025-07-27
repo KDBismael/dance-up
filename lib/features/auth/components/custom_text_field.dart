@@ -12,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final String? errorText;
   final String? helperText;
   final bool? isValid;
+  final bool readOnly;
   final void Function(String)? onChanged;
 
   const CustomTextField({
@@ -26,6 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.errorText,
     this.helperText,
+    this.readOnly = false,
     this.value,
   });
 
@@ -55,6 +57,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         TextField(
+          readOnly: widget.readOnly,
           controller: widget.controller,
           obscureText: _obscureText,
           keyboardType: widget.keyboardType,

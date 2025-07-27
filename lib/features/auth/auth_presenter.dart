@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:dance_up/app.dart';
 import 'package:dance_up/core/services/get_storage.dart';
+import 'package:dance_up/data/entities/verification.dart';
 import 'package:dance_up/data/models/user_model.dart';
+import 'package:dance_up/data/models/verification_model.dart';
 import 'package:dance_up/data/repositories/autth.dart';
 import 'package:dance_up/data/repositories/profile.dart';
 import 'package:dance_up/features/auth/screens/auth.dart';
@@ -126,6 +130,54 @@ class AuthPresenter extends GetxController {
         user.value = userData;
         isLoading.value = false;
       },
+    );
+  }
+
+  Future<void> submitInstructorVerification(
+      VerificationModel verification, File file) async {
+    isLoading.value = true;
+
+    final fileUrl = await uploadFile(file, 'verifications');
+    print('Submitting verification: ${verification.toJson()}');
+    final verificationData = verification.copyWith(
+      proofUrl: fileUrl ?? '',
+    );
+
+    final res = await profileRepository.submitInstructorVerification(
+        VerificationModel.fromEntity(verificationData));
+    res.fold(
+      (failure) {
+        isLoading.value = false;
+        errorMessage?.value = failure.message;
+        print(failure.message);
+      },
+      (verificationData) {
+        isLoading.value = false;
+        Get.snackbar('Success', 'Verification submitted successfully');
+      },
+    );
+  }
+
+  Future<VerificationStatus> getInstructorVerificationStatus(
+      String userId) async {
+    final res = await profileRepository.getInstructorVerificationStatus(userId);
+    return res.fold(
+      (failure) {
+        print(failure.message);
+        return VerificationStatus.pending;
+      },
+      (status) => status,
+    );
+  }
+
+  Future<String?> uploadFile(File file, String pathInStorage) async {
+    final res = await profileRepository.uploadFile(file, pathInStorage);
+    return res.fold(
+      (failure) {
+        print(failure.message);
+        return null;
+      },
+      (url) => url,
     );
   }
 }

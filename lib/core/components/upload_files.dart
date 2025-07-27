@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UploadFile extends StatefulWidget {
-  const UploadFile({super.key});
+  const UploadFile({
+    super.key,
+    required this.onFileSelected,
+  });
+
+  final Function(PlatformFile file)? onFileSelected;
 
   @override
   State<UploadFile> createState() => _UploadFileState();
@@ -25,6 +30,7 @@ class _UploadFileState extends State<UploadFile> {
       setState(() {
         selectedFile = result.files.first;
       });
+      widget.onFileSelected?.call(result.files.first);
     } else if (result != null) {
       Get.snackbar("Info", 'File too large (max 5MB)');
     }
@@ -88,7 +94,8 @@ class _UploadFileState extends State<UploadFile> {
         child: Row(
           children: [
             Image.asset(
-              "assets/file_icon.png", // Add a file icon in assets if needed
+              'res/images/discoverDanceEvents.png',
+              // "assets/file_icon.png",
               height: 24,
               width: 24,
             ),

@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:dance_up/core/components/base_widget_with_gradient.dart';
 import 'package:dance_up/core/components/custom_button.dart';
 import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/components/overlapping_avatar.dart';
 import 'package:dance_up/core/components/upload_files.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/data/entities/verification.dart';
+import 'package:dance_up/data/models/verification_model.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/auth/components/custom_text_field.dart';
 import 'package:dance_up/features/profile/components/profile_item.dart';
 import 'package:dance_up/features/profile/screens/edit_personal_info.dart';
 import 'package:dance_up/routes/get_pages.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -234,12 +239,15 @@ class VerifiedInstructor extends StatelessWidget {
   VerifiedInstructor({
     super.key,
   });
+  final AuthPresenter authPresenter = Get.find<AuthPresenter>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
   var hasApply = false.obs;
   var errorText = "".obs;
+  var selectedFile = Rx<PlatformFile?>(null);
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -278,6 +286,7 @@ class VerifiedInstructor extends StatelessWidget {
               Column(
                 children: [
                   CustomTextField(
+                    readOnly: true,
                     controller: firstNameController,
                     prefixIcon: Icons.badge_outlined,
                     value: "Jaydon",
@@ -288,12 +297,14 @@ class VerifiedInstructor extends StatelessWidget {
                   CustomTextField(
                     controller: lastNameController,
                     prefixIcon: Icons.badge_outlined,
+                    readOnly: true,
                     value: "Mango",
                     hintText: "Last Name",
                     isValid: true,
                   ),
                   const SizedBox(height: 8),
                   CustomTextField(
+                    readOnly: true,
                     controller: emailController,
                     prefixIcon: Icons.email_outlined,
                     value: "jandoe@.com",
@@ -301,7 +312,12 @@ class VerifiedInstructor extends StatelessWidget {
                     isValid: true,
                   ),
                   const SizedBox(height: 8),
-                  const UploadFile(),
+                  UploadFile(
+                    onFileSelected: (PlatformFile file) {
+                      selectedFile.value = file;
+                      errorText.value = "";
+                    },
+                  ),
                   if (errorText.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(top: 7),
@@ -328,8 +344,21 @@ class VerifiedInstructor extends StatelessWidget {
               ),
             CustomButton(
                 text: hasApply.value ? "Submit" : "Apply",
-                onPressed: () {
-                  if (!hasApply.value) hasApply.value = true;
+                onPressed: () async {
+                  if (hasApply.value && selectedFile.value != null) {
+                    await authPresenter.submitInstructorVerification(
+                      VerificationModel(
+                        id: '',
+                        userId: authPresenter.user.value!.id,
+                        proofUrl: '',
+                        status: VerificationStatus.pending,
+                      ),
+                      File(selectedFile.value!.path!),
+                    );
+                    Get.back();
+                  } else {
+                    hasApply.value = true;
+                  }
                 }),
             const SizedBox(height: 16),
             const CancelButton(),
