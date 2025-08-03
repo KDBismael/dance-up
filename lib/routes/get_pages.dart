@@ -1,4 +1,6 @@
 import 'package:dance_up/features/events/screens/events_details.dart';
+import 'package:dance_up/features/events/screens/instructor_event_details.dart';
+import 'package:dance_up/features/events/screens/manage_event.dart';
 import 'package:dance_up/features/profile/screens/dance_activity_info.dart';
 import 'package:dance_up/features/profile/screens/edit_personal_info.dart';
 import 'package:dance_up/features/profile/screens/favorite_dance_venue.dart';
@@ -53,4 +55,12 @@ final getPages = [
     name: Routes.eventDetails,
     page: () => EventDetailsScreen(),
   ),
+  GetPage(
+    name: Routes.manageEvent,
+    page: () => ManageEventsScreen(),
+  ),
+  GetPage(
+    name: Routes.instructorEventDetails,
+    page: () => InstructorEventDetailsScreen(),
+  )
 ];

@@ -12,4 +12,6 @@ class Routes {
   static String guestProfile = "/guest_profile";
 
   static String eventDetails = "/event_details";
+  static String manageEvent = "/manage_event";
+  static String instructorEventDetails = "/instructor_event_details";
 }

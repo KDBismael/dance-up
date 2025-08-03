@@ -1,5 +1,21 @@
 import 'package:dance_up/data/entities/user.dart';
 
+enum InstructorViewMode {
+  dancer,
+  instructor;
+
+  String description() {
+    switch (this) {
+      case InstructorViewMode.dancer:
+        return "Dancer";
+      case InstructorViewMode.instructor:
+        return "Instructor";
+      default:
+        throw "Error";
+    }
+  }
+}
+
 class UserModel extends User {
   UserModel({
     required super.id,
