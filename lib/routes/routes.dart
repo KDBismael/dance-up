@@ -18,4 +18,5 @@ class Routes {
   static String instructorPhotos = "/instructor_photos";
   static String instructorAttendees = "/instructor_attendees";
   static String instructorReviews = "/instructor_reviews";
+  static String instructorNews = "/instructor_news";
 }

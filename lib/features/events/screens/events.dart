@@ -109,7 +109,12 @@ class InstructorView extends StatelessWidget {
         },
       ),
       SizedBox(height: 20),
-      MenuCard(title: "Activity Feed"),
+      MenuCard(
+        title: "Activity Feed",
+        onTap: () {
+          Get.toNamed(Routes.instructorNews);
+        },
+      ),
     ]);
   }
 }
