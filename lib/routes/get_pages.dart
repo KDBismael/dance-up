@@ -1,5 +1,8 @@
 import 'package:dance_up/features/events/screens/events_details.dart';
-import 'package:dance_up/features/events/screens/instructor_event_details.dart';
+import 'package:dance_up/features/events/screens/instructors/attendees.dart';
+import 'package:dance_up/features/events/screens/instructors/event_details.dart';
+import 'package:dance_up/features/events/screens/instructors/photos.dart';
+import 'package:dance_up/features/events/screens/instructors/reviews.dart';
 import 'package:dance_up/features/events/screens/manage_event.dart';
 import 'package:dance_up/features/profile/screens/dance_activity_info.dart';
 import 'package:dance_up/features/profile/screens/edit_personal_info.dart';
@@ -62,5 +65,17 @@ final getPages = [
   GetPage(
     name: Routes.instructorEventDetails,
     page: () => InstructorEventDetailsScreen(),
-  )
+  ),
+  GetPage(
+    name: Routes.instructorPhotos,
+    page: () => InstructorPhotosScreen(),
+  ),
+  GetPage(
+    name: Routes.instructorAttendees,
+    page: () => InstructorAttendeesScreen(),
+  ),
+  GetPage(
+    name: Routes.instructorReviews,
+    page: () => InstructorReviewsScreen(),
+  ),
 ];

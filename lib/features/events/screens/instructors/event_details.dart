@@ -1,5 +1,9 @@
+import 'package:dance_up/core/components/custom_button.dart';
+import 'package:dance_up/core/components/custon_modal_bottom_sheet.dart';
 import 'package:dance_up/core/theme/colors.dart';
+import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EventDetails {
   final String title;
@@ -57,7 +61,11 @@ class InstructorEventDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(event.title),
+        title: Text(event.title,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(fontSize: 20)),
         centerTitle: true,
         leading: const BackButton(),
         actions: [
@@ -68,94 +76,142 @@ class InstructorEventDetailsScreen extends StatelessWidget {
         ],
         backgroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // Stats Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                StatBox(
-                  label: "Views",
-                  value: "${event.views}",
-                  icon: _StatChangeIcon(event.viewsChange),
-                ),
-                StatBox(
-                  label: "Attendees",
-                  value: "${event.attendees}",
-                  icon: _StatChangeIcon(event.attendeesChange),
-                ),
-                StatBox(
-                  label: "Rate",
-                  value: "${event.rate}",
-                  icon: const Icon(Icons.star, color: Colors.orange, size: 18),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // Description
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Description :",
-                  style: Theme.of(context).textTheme.titleMedium),
-            ),
-            const SizedBox(height: 6),
-            Text(event.description),
-
-            const SizedBox(height: 16),
-
-            // Info Table
-            Wrap(
-              runSpacing: 12,
-              spacing: 40,
-              children: [
-                _InfoLine(label: "location", value: event.location),
-                _InfoLine(label: "Time", value: _formatDate(event.startDate)),
-                _InfoLine(label: "Time", value: _formatDate(event.endDate)),
-                _InfoLine(label: "Price", value: event.price),
-                _InfoLine(label: "Position", value: event.position),
-                _InfoLine(label: "Tags", value: event.tag),
-              ],
-            ),
-
-            const SizedBox(height: 24),
-
-            // Tiles
-            InfoTile(title: "Photos (10)", onTap: () {}),
-            const SizedBox(height: 8),
-            InfoTile(title: "Attendees (10)", onTap: () {}),
-            const SizedBox(height: 8),
-            InfoTile(title: "Reviews (2)", onTap: () {}),
-            const Spacer(),
-
-            // Bottom Buttons
-            Row(
-              children: [
-                Expanded(
-                  child: _ActionButton(
-                      label: "Delete",
-                      onPressed: () {},
-                      color: Colors.grey.shade300,
-                      textColor: Colors.grey),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _ActionButton(
-                      label: "Edit",
-                      onPressed: () {},
-                      color: Colors.black,
-                      textColor: Colors.white),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _ActionButton(
-                      label: "", onPressed: () {}, icon: Icons.remove_red_eye),
-                ),
-              ],
-            ),
-          ],
+      body: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  StatBox(
+                    label: "Views",
+                    value: "${event.views}",
+                    icon: _StatChangeIcon(event.viewsChange),
+                  ),
+                  StatBox(
+                    label: "Attendees",
+                    value: "${event.attendees}",
+                    icon: _StatChangeIcon(event.attendeesChange),
+                  ),
+                  StatBox(
+                    label: "Rate",
+                    value: "${event.rate}",
+                    icon:
+                        const Icon(Icons.star, color: Colors.orange, size: 18),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Description :",
+                    style: Theme.of(context).textTheme.titleMedium),
+              ),
+              const SizedBox(height: 6),
+              Text(event.description),
+              const SizedBox(height: 16),
+              Wrap(
+                runSpacing: 12,
+                spacing: 40,
+                children: [
+                  _InfoLine(label: "location", value: event.location),
+                  _InfoLine(label: "Time", value: _formatDate(event.startDate)),
+                  _InfoLine(label: "Time", value: _formatDate(event.endDate)),
+                  _InfoLine(label: "Price", value: event.price),
+                  _InfoLine(label: "Position", value: event.position),
+                  _InfoLine(label: "Tags", value: event.tag),
+                ],
+              ),
+              const SizedBox(height: 24),
+              InfoTile(
+                  title: "Photos (10)",
+                  onTap: () {
+                    Get.toNamed(Routes.instructorPhotos);
+                  }),
+              const SizedBox(height: 8),
+              InfoTile(
+                  title: "Attendees (10)",
+                  onTap: () {
+                    Get.toNamed(Routes.instructorAttendees);
+                  }),
+              const SizedBox(height: 8),
+              InfoTile(
+                  title: "Reviews (2)",
+                  onTap: () {
+                    Get.toNamed(Routes.instructorReviews);
+                  }),
+              const Spacer(),
+              Row(
+                children: [
+                  Expanded(
+                    child: _ActionButton(
+                        label: "Delete",
+                        onPressed: () {
+                          showCustomModalBottomSheet(
+                            context: context,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Delete Dance Party III",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(fontSize: 20),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Are you sure you want to delete event Dance Party III ? By deleting it you ill not be able to see any update related.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(color: AppColors.blackGray),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 27),
+                                Row(
+                                  children: [
+                                    CustomButton(
+                                        text: "Yes",
+                                        backgroundColor: AppColors.gray,
+                                        textColor: AppColors.blackGray,
+                                        onPressed: () {}),
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                        child: CustomButton(
+                                            text: "No", onPressed: () {}))
+                                  ],
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                        color: Colors.grey.shade300,
+                        textColor: Colors.grey),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _ActionButton(
+                        label: "Edit",
+                        onPressed: () {},
+                        color: Colors.black,
+                        textColor: Colors.white),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _ActionButton(
+                        label: "",
+                        onPressed: () {
+                          Get.toNamed(Routes.eventDetails,
+                              arguments: {'event': event});
+                        },
+                        icon: Icons.remove_red_eye),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
