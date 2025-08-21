@@ -1,5 +1,6 @@
 import 'package:dance_up/features/events/screens/events_details.dart';
 import 'package:dance_up/features/events/screens/instructors/attendees.dart';
+import 'package:dance_up/features/events/screens/instructors/create_event_screen.dart';
 import 'package:dance_up/features/events/screens/instructors/event_details.dart';
 import 'package:dance_up/features/events/screens/instructors/manage_event.dart';
 import 'package:dance_up/features/events/screens/instructors/news.dart';
@@ -82,5 +83,9 @@ final getPages = [
   GetPage(
     name: Routes.instructorNews,
     page: () => InstructorNewsScreen(),
+  ),
+  GetPage(
+    name: Routes.instructorCreateEvent,
+    page: () => CreateEventScreen(),
   ),
 ];

@@ -9,6 +9,7 @@ import 'package:dance_up/features/events/components/filter_chips.dart';
 import 'package:dance_up/features/events/components/rounded_button_icon.dart';
 import 'package:dance_up/features/events/components/sort_by_widget.dart';
 import 'package:dance_up/features/events/event_presenter.dart';
+import 'package:dance_up/features/events/instructor_event_presenter.dart';
 import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +37,8 @@ enum EventSortBy {
 }
 
 class Events extends StatelessWidget {
+  final InstructorEventController controller =
+      Get.put(InstructorEventController());
   final EventPresenter presenter = Get.find<EventPresenter>();
   var viewMode = InstructorViewMode.dancer.obs;
 
@@ -113,6 +116,13 @@ class InstructorView extends StatelessWidget {
         title: "Activity Feed",
         onTap: () {
           Get.toNamed(Routes.instructorNews);
+        },
+      ),
+      SizedBox(height: 20),
+      MenuCard(
+        title: "Create a New Event",
+        onTap: () {
+          Get.toNamed(Routes.instructorCreateEvent);
         },
       ),
     ]);

@@ -14,6 +14,7 @@ class CustomTextField extends StatefulWidget {
   final bool? isValid;
   final bool readOnly;
   final void Function(String)? onChanged;
+  final int? maxLines;
 
   const CustomTextField({
     super.key,
@@ -29,6 +30,7 @@ class CustomTextField extends StatefulWidget {
     this.helperText,
     this.readOnly = false,
     this.value,
+    this.maxLines = 1,
   });
 
   @override
@@ -63,6 +65,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction,
           onChanged: widget.onChanged,
+          maxLines: widget.maxLines,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: AppColors.primary,
               ),
@@ -94,15 +97,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
             filled: true,
             fillColor: AppColors.white,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: AppColors.gray),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: AppColors.gray),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
               borderSide:
                   const BorderSide(color: AppColors.primary, width: 1.5),
             ),

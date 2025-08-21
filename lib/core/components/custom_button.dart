@@ -37,11 +37,13 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final Color effectiveBackground =
-        isDisabled ? disabledColor! : (backgroundColor ?? theme.primaryColor);
+    final Color effectiveBackground = isDisabled || onPressed == null
+        ? disabledColor!
+        : (backgroundColor ?? theme.primaryColor);
 
-    final Color effectiveTextColor =
-        isDisabled ? disabledTextColor! : (textColor ?? Colors.white);
+    final Color effectiveTextColor = isDisabled || onPressed == null
+        ? disabledTextColor!
+        : (textColor ?? Colors.white);
 
     final TextStyle effectiveTextStyle =
         (textStyle ?? theme.textTheme.bodyMedium)!
@@ -114,9 +116,10 @@ class CustomButton extends StatelessWidget {
       default:
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: effectiveBackground,
+            backgroundColor: effectiveTextColor,
             shape: shape,
             padding: padding,
+            disabledBackgroundColor: effectiveBackground,
           ),
           onPressed: isDisabled
               ? null
