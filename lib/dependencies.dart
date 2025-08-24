@@ -6,6 +6,7 @@ import 'package:dance_up/data/repositories/event.dart';
 import 'package:dance_up/data/repositories/profile.dart';
 import 'package:dance_up/features/auth/auth_presenter.dart';
 import 'package:dance_up/features/events/event_presenter.dart';
+import 'package:dance_up/features/events/instructor_event_presenter.dart';
 import 'package:dance_up/features/navigation/navigation_controller.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,8 @@ class InitialBinding extends Bindings {
     Get.lazyPut<AuthPresenter>(() => AuthPresenter(Get.find(), Get.find()),
         fenix: true);
     Get.lazyPut<EventPresenter>(() => EventPresenter(Get.find(), Get.find()),
+        fenix: true);
+    Get.lazyPut<InstructorEventController>(() => InstructorEventController(),
         fenix: true);
     Get.lazyPut<NavigationController>(() => NavigationController(),
         fenix: true);

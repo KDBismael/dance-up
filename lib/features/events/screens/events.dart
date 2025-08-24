@@ -9,7 +9,6 @@ import 'package:dance_up/features/events/components/filter_chips.dart';
 import 'package:dance_up/features/events/components/rounded_button_icon.dart';
 import 'package:dance_up/features/events/components/sort_by_widget.dart';
 import 'package:dance_up/features/events/event_presenter.dart';
-import 'package:dance_up/features/events/instructor_event_presenter.dart';
 import 'package:dance_up/routes/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,10 +36,7 @@ enum EventSortBy {
 }
 
 class Events extends StatelessWidget {
-  final InstructorEventController controller =
-      Get.put(InstructorEventController());
   final EventPresenter presenter = Get.find<EventPresenter>();
-  var viewMode = InstructorViewMode.dancer.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -65,30 +61,30 @@ class Events extends StatelessWidget {
                     Spacer(),
                     TextButton.icon(
                       onPressed: () {
-                        viewMode.value =
-                            viewMode.value == InstructorViewMode.dancer
-                                ? InstructorViewMode.instructor
-                                : InstructorViewMode.dancer;
+                        presenter.viewMode.value = presenter.viewMode.value ==
+                                InstructorViewMode.dancer
+                            ? InstructorViewMode.instructor
+                            : InstructorViewMode.dancer;
                       },
                       label: Text(
-                        viewMode.value.description(),
+                        presenter.viewMode.value.description(),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium
                             ?.copyWith(color: AppColors.white),
                       ),
                       iconAlignment: IconAlignment.end,
-                      icon:
-                          Icon(Icons.view_day_outlined, color: AppColors.white),
+                      icon: Icon(Icons.swap_horiz_outlined,
+                          color: AppColors.white),
                       style: OutlinedButton.styleFrom(
                           backgroundColor: AppColors.secondary),
                     )
                   ],
                 ),
               ),
-            if (viewMode.value == InstructorViewMode.dancer)
+            if (presenter.viewMode.value == InstructorViewMode.dancer)
               Expanded(child: DancerView()),
-            if (viewMode.value == InstructorViewMode.instructor)
+            if (presenter.viewMode.value == InstructorViewMode.instructor)
               Expanded(child: InstructorView())
           ],
         );

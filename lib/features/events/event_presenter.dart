@@ -24,6 +24,7 @@ class EventPresenter extends GetxController {
   var selectedDancePosition = <DancePosition>[...DancePosition.values].obs;
   var eventReviews = RxMap<String, List<EventReviewModel>>();
   var eventAttendees = RxMap<String, List<UserModel>>();
+  var viewMode = InstructorViewMode.dancer.obs;
 
   @override
   void onInit() {

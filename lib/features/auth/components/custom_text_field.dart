@@ -15,6 +15,7 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final void Function(String)? onChanged;
   final int? maxLines;
+  final String? prefixText;
 
   const CustomTextField({
     super.key,
@@ -31,6 +32,7 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.value,
     this.maxLines = 1,
+    this.prefixText,
   });
 
   @override
@@ -70,6 +72,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 color: AppColors.primary,
               ),
           decoration: InputDecoration(
+            prefixText: widget.prefixText,
+            prefixStyle: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: AppColors.gray),
             prefixIcon: widget.prefixIcon != null
                 ? Icon(
                     widget.prefixIcon,
