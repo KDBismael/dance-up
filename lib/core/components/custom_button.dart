@@ -116,7 +116,7 @@ class CustomButton extends StatelessWidget {
       default:
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: effectiveTextColor,
+            backgroundColor: effectiveBackground,
             shape: shape,
             padding: padding,
             disabledBackgroundColor: effectiveBackground,
